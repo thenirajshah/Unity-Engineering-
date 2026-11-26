@@ -1,0 +1,317 @@
+[
+  {
+    "title": "Chemical & Pharmaceutical Reactors",
+    "kind": "reactor",
+    "desc": "Equipment for controlled chemical and pharmaceutical reaction processes.",
+    "cat": 0,
+    "slug": "chemical-pharmaceutical-reactors"
+  },
+  {
+    "title": "GMP / Semi-GMP Reactors",
+    "kind": "reactor-gmp",
+    "desc": "Process reactors designed around hygienic construction requirements.",
+    "cat": 0,
+    "slug": "gmp-semi-gmp-reactors"
+  },
+  {
+    "title": "Limpet Coil Reactors",
+    "kind": "reactor-limpet",
+    "desc": "Reaction vessels with external half-pipe coils for thermal circulation.",
+    "cat": 0,
+    "slug": "limpet-coil-reactors"
+  },
+  {
+    "title": "Jacketed / Double Jacketed Reactors",
+    "kind": "reactor-jacket",
+    "desc": "Jacketed reaction equipment for heating and cooling applications.",
+    "cat": 0,
+    "slug": "jacketed-double-jacketed-reactors"
+  },
+  {
+    "title": "SS Reactors",
+    "kind": "reactor-ss",
+    "desc": "Stainless steel reaction equipment for compatible process media.",
+    "cat": 0,
+    "slug": "ss-reactors"
+  },
+  {
+    "title": "Polyol Reactors",
+    "kind": "reactor-polyol",
+    "desc": "Reaction equipment for polyol processing and associated thermal duties.",
+    "cat": 0,
+    "slug": "polyol-reactors"
+  },
+  {
+    "title": "Shell & Tube Heat Exchanger",
+    "kind": "exchanger",
+    "desc": "Indirect heat transfer through a tube bundle and shell.",
+    "cat": 1,
+    "slug": "shell-tube-heat-exchanger"
+  },
+  {
+    "title": "Falling Film Heat Exchanger",
+    "kind": "falling",
+    "desc": "Heat transfer using a liquid film flowing along a surface.",
+    "cat": 1,
+    "slug": "falling-film-heat-exchanger"
+  },
+  {
+    "title": "Water / Industrial Heat Exchanger",
+    "kind": "water-exchanger",
+    "desc": "Heat exchange equipment for utility and industrial process duties.",
+    "cat": 1,
+    "slug": "water-industrial-heat-exchanger"
+  },
+  {
+    "title": "Reboiler",
+    "kind": "reboiler",
+    "desc": "Heat transfer equipment supporting vapor generation in separation systems.",
+    "cat": 1,
+    "slug": "reboiler"
+  },
+  {
+    "title": "Condenser",
+    "kind": "condenser",
+    "desc": "Equipment for condensing process vapors by removing heat.",
+    "cat": 1,
+    "slug": "condenser"
+  },
+  {
+    "title": "Distillation / Process Column",
+    "kind": "column",
+    "desc": "Vertical process equipment for separation and mass transfer.",
+    "cat": 1,
+    "slug": "distillation-process-column"
+  },
+  {
+    "title": "Industrial / High Pressure Vessel",
+    "kind": "pressure",
+    "desc": "Fabricated containment equipment for specified industrial pressure duties.",
+    "cat": 2,
+    "slug": "industrial-high-pressure-vessel"
+  },
+  {
+    "title": "Chemical Reaction Vessel",
+    "kind": "reaction",
+    "desc": "Vessels for chemical processing and reaction operations.",
+    "cat": 2,
+    "slug": "chemical-reaction-vessel"
+  },
+  {
+    "title": "SS / MS / CS Storage Tank",
+    "kind": "tank-storage",
+    "desc": "Storage tanks in specified stainless, mild or carbon steel construction.",
+    "cat": 2,
+    "slug": "ss-ms-cs-storage-tank"
+  },
+  {
+    "title": "Chemical / Industrial Storage Tank",
+    "kind": "tank-chemical",
+    "desc": "Storage equipment for compatible chemical and industrial media.",
+    "cat": 2,
+    "slug": "chemical-industrial-storage-tank"
+  },
+  {
+    "title": "Milk / Water / Oil Storage Tank",
+    "kind": "oil-tank",
+    "desc": "Storage equipment configured for the intended liquid and service conditions.",
+    "cat": 2,
+    "slug": "milk-water-oil-storage-tank"
+  },
+  {
+    "title": "Vertical / Horizontal Storage Tank",
+    "kind": "horizontal-tank",
+    "desc": "Storage tanks configured to suit available space and process requirements.",
+    "cat": 2,
+    "slug": "vertical-horizontal-storage-tank"
+  },
+  {
+    "title": "Underground Storage Tank",
+    "kind": "underground",
+    "desc": "Storage tank construction for specified underground installation conditions.",
+    "cat": 2,
+    "slug": "underground-storage-tank"
+  },
+  {
+    "title": "Air / Nitrogen Receiver Tank",
+    "kind": "receiver",
+    "desc": "Receiver vessels for compressed air or nitrogen systems.",
+    "cat": 2,
+    "slug": "air-nitrogen-receiver-tank"
+  },
+  {
+    "title": "GMP / Insulated Tank",
+    "kind": "tank-gmp",
+    "desc": "Storage vessels with hygienic or thermal insulation requirements as specified.",
+    "cat": 2,
+    "slug": "gmp-insulated-tank"
+  },
+  {
+    "title": "Mixing & Storage Vessel",
+    "kind": "mixing",
+    "desc": "Vessels combining storage and mixing operations.",
+    "cat": 2,
+    "slug": "mixing-storage-vessel"
+  },
+  {
+    "title": "Rotocone Vacuum Dryer (RCVD)",
+    "kind": "rcvd",
+    "desc": "Rotating conical vacuum drying equipment for suitable solid products.",
+    "cat": 3,
+    "slug": "rotocone-vacuum-dryer-rcvd"
+  },
+  {
+    "title": "Rotary Vacuum Dryer (RVD)",
+    "kind": "rvd",
+    "desc": "Rotary equipment for drying under vacuum.",
+    "cat": 3,
+    "slug": "rotary-vacuum-dryer-rvd"
+  },
+  {
+    "title": "Fluid Bed Dryer (FBD)",
+    "kind": "fbd",
+    "desc": "Drying equipment using a fluidized bed of particles.",
+    "cat": 3,
+    "slug": "fluid-bed-dryer-fbd"
+  },
+  {
+    "title": "Fluid Bed Processor (FBP)",
+    "kind": "fbp",
+    "desc": "Fluid-bed equipment for specified particle processing applications.",
+    "cat": 3,
+    "slug": "fluid-bed-processor-fbp"
+  },
+  {
+    "title": "Vacuum Tray Dryer (VTD)",
+    "kind": "vtd",
+    "desc": "Tray-based drying equipment operating under specified vacuum conditions.",
+    "cat": 3,
+    "slug": "vacuum-tray-dryer-vtd"
+  },
+  {
+    "title": "Hot Air Tray Dryer",
+    "kind": "hot-air",
+    "desc": "Tray drying equipment using heated air circulation.",
+    "cat": 3,
+    "slug": "hot-air-tray-dryer"
+  },
+  {
+    "title": "Agitated Nutsche Filter Dryer (ANFD)",
+    "kind": "anfd",
+    "desc": "Equipment integrating solid-liquid filtration, washing and drying duties.",
+    "cat": 3,
+    "slug": "agitated-nutsche-filter-dryer-anfd"
+  },
+  {
+    "title": "Ribbon Blender",
+    "kind": "ribbon",
+    "desc": "Horizontal blending equipment for compatible powders and bulk solids.",
+    "cat": 4,
+    "slug": "ribbon-blender"
+  },
+  {
+    "title": "Octagonal Blender",
+    "kind": "octagonal",
+    "desc": "Rotating octagonal vessel for bulk material blending.",
+    "cat": 4,
+    "slug": "octagonal-blender"
+  },
+  {
+    "title": "Double Cone Blender",
+    "kind": "double-cone",
+    "desc": "Rotating double-cone equipment for blending powders and granules.",
+    "cat": 4,
+    "slug": "double-cone-blender"
+  },
+  {
+    "title": "V-Type Blender",
+    "kind": "v-blender",
+    "desc": "V-shaped tumbling equipment for suitable dry blending duties.",
+    "cat": 4,
+    "slug": "v-type-blender"
+  },
+  {
+    "title": "Egg Shape Blender",
+    "kind": "egg",
+    "desc": "Rotating egg-shaped vessel for specified blending applications.",
+    "cat": 4,
+    "slug": "egg-shape-blender"
+  },
+  {
+    "title": "BIN Blender",
+    "kind": "bin",
+    "desc": "Bin-based blending equipment for material handling and mixing.",
+    "cat": 4,
+    "slug": "bin-blender"
+  },
+  {
+    "title": "Cage Blender",
+    "kind": "cage",
+    "desc": "Cage-supported tumbling equipment for compatible blending duties.",
+    "cat": 4,
+    "slug": "cage-blender"
+  },
+  {
+    "title": "Contra Rotary Mixer",
+    "kind": "contra",
+    "desc": "Mixing equipment using counter-rotating mixing elements as specified.",
+    "cat": 4,
+    "slug": "contra-rotary-mixer"
+  },
+  {
+    "title": "Planetary Mixer",
+    "kind": "planetary",
+    "desc": "Mixing equipment for specified viscous or other process materials.",
+    "cat": 4,
+    "slug": "planetary-mixer"
+  },
+  {
+    "title": "Magnetic Mixer",
+    "kind": "magnetic",
+    "desc": "Mixing equipment using a specified magnetic drive arrangement.",
+    "cat": 4,
+    "slug": "magnetic-mixer"
+  },
+  {
+    "title": "Agitator",
+    "kind": "agitator",
+    "desc": "Shaft and impeller assemblies for specified mixing duties.",
+    "cat": 4,
+    "slug": "agitator"
+  },
+  {
+    "title": "Homogenizer",
+    "kind": "homogenizer",
+    "desc": "Equipment for specified dispersion and homogenization applications.",
+    "cat": 4,
+    "slug": "homogenizer"
+  },
+  {
+    "title": "Rapid Mixer Granulator (RMG)",
+    "kind": "rmg",
+    "desc": "Equipment for mixing and wet granulation of suitable materials.",
+    "cat": 5,
+    "slug": "rapid-mixer-granulator-rmg"
+  },
+  {
+    "title": "Starch Paste Kettle",
+    "kind": "kettle",
+    "desc": "Kettle equipment for preparing starch paste and similar process mixtures.",
+    "cat": 5,
+    "slug": "starch-paste-kettle"
+  },
+  {
+    "title": "Multi Mill",
+    "kind": "multimill",
+    "desc": "Milling equipment for specified particle size reduction.",
+    "cat": 5,
+    "slug": "multi-mill"
+  },
+  {
+    "title": "Vibro Sifter",
+    "kind": "sifter",
+    "desc": "Vibratory screening equipment for separating particles by size.",
+    "cat": 5,
+    "slug": "vibro-sifter"
+  }
+]
