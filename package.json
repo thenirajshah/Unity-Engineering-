@@ -1,0 +1,14 @@
+{
+  "name": "unity-engineering",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "python3 scripts/build.py",
+    "lint": "node --check public/assets/site.js && node --check src/engine.js",
+    "check": "python3 -m py_compile scripts/build.py && node --check scripts/geometry.cjs",
+    "test": "python3 scripts/check.py"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,180 @@
+File,Source,Licence or rights basis,Equipment / subject,Type,Verification status
+assets/catalogue.pdf,Unity Engineering V2 catalogue,Project-created and user-supplied source,45 equipment entries,Catalogue,Catalogue count verified; renders conceptual
+assets/categories/dryers-filtration.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,dryers-filtration,Category banner,Concept geometry; requires engineering review
+assets/categories/granulation-milling-sifting.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,granulation-milling-sifting,Category banner,Concept geometry; requires engineering review
+assets/categories/heat-exchangers-columns.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,heat-exchangers-columns,Category banner,Concept geometry; requires engineering review
+assets/categories/mixers-blenders.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,mixers-blenders,Category banner,Concept geometry; requires engineering review
+assets/categories/reactors.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,reactors,Category banner,Concept geometry; requires engineering review
+assets/categories/vessels-tanks.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,vessels-tanks,Category banner,Concept geometry; requires engineering review
+assets/cinematic/discharge.webp,OpenAI image generation for Unity Engineering,Project-generated output,discharge,Concept image,Editorial concept; facility and equipment details unverified
+assets/cinematic/impeller.webp,OpenAI image generation for Unity Engineering,Project-generated output,impeller,Concept image,Editorial concept; facility and equipment details unverified
+assets/cinematic/tubesheet.webp,OpenAI image generation for Unity Engineering,Project-generated output,tubesheet,Concept image,Editorial concept; facility and equipment details unverified
+assets/details/anfd.webp,OpenAI image generation for Unity Engineering,Project-generated output,Agitated Nutsche Filter Dryer (ANFD),Concept image,Editorial concept; facility and equipment details unverified
+assets/details/exchanger.webp,OpenAI image generation for Unity Engineering,Project-generated output,Shell & Tube Heat Exchanger,Concept image,Editorial concept; facility and equipment details unverified
+assets/details/fbd.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fluid Bed Dryer (FBD),Concept image,Editorial concept; facility and equipment details unverified
+assets/details/homogenizer.webp,OpenAI image generation for Unity Engineering,Project-generated output,Homogenizer,Concept image,Editorial concept; facility and equipment details unverified
+assets/details/pressure.webp,OpenAI image generation for Unity Engineering,Project-generated output,Industrial / High Pressure Vessel,Concept image,Editorial concept; facility and equipment details unverified
+assets/details/reactor-limpet.webp,OpenAI image generation for Unity Engineering,Project-generated output,Limpet Coil Reactors,Concept image,Editorial concept; facility and equipment details unverified
+assets/details/ribbon.webp,OpenAI image generation for Unity Engineering,Project-generated output,Ribbon Blender,Concept image,Editorial concept; facility and equipment details unverified
+assets/details/rmg.webp,OpenAI image generation for Unity Engineering,Project-generated output,Rapid Mixer Granulator (RMG),Concept image,Editorial concept; facility and equipment details unverified
+assets/details/sifter.webp,OpenAI image generation for Unity Engineering,Project-generated output,Vibro Sifter,Concept image,Editorial concept; facility and equipment details unverified
+assets/details/vtd.webp,OpenAI image generation for Unity Engineering,Project-generated output,Vacuum Tray Dryer (VTD),Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/coil.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/cutting.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/dispatch.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/drawings.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/forming.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/inspection.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/machining.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/polishing.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/rolling.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/fabrication/welding.webp,OpenAI image generation for Unity Engineering,Project-generated output,Fabrication workflow,Concept image,Editorial concept; facility and equipment details unverified
+assets/favicon.png,Supplied V1 archive,User-supplied brand assets,Unity Engineering,Brand asset,Original geometry
+assets/hero-mobile.webp,OpenAI image generation for Unity Engineering,Project-generated output,Limpet coil reactor,Concept image,Editorial concept; facility and equipment details unverified
+assets/hero.webp,OpenAI image generation for Unity Engineering,Project-generated output,Limpet coil reactor,Concept image,Editorial concept; facility and equipment details unverified
+assets/logo.png,Supplied V1 archive,User-supplied brand assets,Unity Engineering,Brand asset,Original geometry
+assets/logo.webp,Supplied V1 archive,User-supplied brand assets,Unity Engineering,Brand asset,Original geometry
+assets/models/anfd.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Agitated Nutsche Filter Dryer (ANFD),3D GLB,Concept geometry; requires engineering review
+assets/models/exchanger-cutaway.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Shell & Tube Heat Exchanger,3D GLB,Concept geometry; requires engineering review
+assets/models/exchanger-exploded.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Shell & Tube Heat Exchanger,3D GLB,Concept geometry; requires engineering review
+assets/models/exchanger.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Shell & Tube Heat Exchanger,3D GLB,Concept geometry; requires engineering review
+assets/models/pressure.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Industrial / High Pressure Vessel,3D GLB,Concept geometry; requires engineering review
+assets/models/reactor-limpet.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Limpet Coil Reactors,3D GLB,Concept geometry; requires engineering review
+assets/models/ribbon.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Ribbon Blender,3D GLB,Concept geometry; requires engineering review
+assets/models/rmg.glb,Original procedural geometry exported as glTF,Project-created and user-supplied source,Rapid Mixer Granulator (RMG),3D GLB,Concept geometry; requires engineering review
+assets/products/agitator.webp,Supplied V1 archive,User-supplied project artwork,Agitator,Fallback render,Original concept from V1
+assets/products/anfd.webp,Supplied V1 archive,User-supplied project artwork,Agitated Nutsche Filter Dryer (ANFD),Fallback render,Original concept from V1
+assets/products/bin.webp,Supplied V1 archive,User-supplied project artwork,BIN Blender,Fallback render,Original concept from V1
+assets/products/cage.webp,Supplied V1 archive,User-supplied project artwork,Cage Blender,Fallback render,Original concept from V1
+assets/products/column.webp,Supplied V1 archive,User-supplied project artwork,Distillation / Process Column,Fallback render,Original concept from V1
+assets/products/condenser.webp,Supplied V1 archive,User-supplied project artwork,Condenser,Fallback render,Original concept from V1
+assets/products/contra.webp,Supplied V1 archive,User-supplied project artwork,Contra Rotary Mixer,Fallback render,Original concept from V1
+assets/products/double-cone.webp,Supplied V1 archive,User-supplied project artwork,Double Cone Blender,Fallback render,Original concept from V1
+assets/products/egg.webp,Supplied V1 archive,User-supplied project artwork,Egg Shape Blender,Fallback render,Original concept from V1
+assets/products/exchanger.webp,Supplied V1 archive,User-supplied project artwork,Shell & Tube Heat Exchanger,Fallback render,Original concept from V1
+assets/products/falling.webp,Supplied V1 archive,User-supplied project artwork,Falling Film Heat Exchanger,Fallback render,Original concept from V1
+assets/products/fbd.webp,Supplied V1 archive,User-supplied project artwork,Fluid Bed Dryer (FBD),Fallback render,Original concept from V1
+assets/products/fbp.webp,Supplied V1 archive,User-supplied project artwork,Fluid Bed Processor (FBP),Fallback render,Original concept from V1
+assets/products/homogenizer.webp,Supplied V1 archive,User-supplied project artwork,Homogenizer,Fallback render,Original concept from V1
+assets/products/horizontal-tank.webp,Supplied V1 archive,User-supplied project artwork,Vertical / Horizontal Storage Tank,Fallback render,Original concept from V1
+assets/products/hot-air.webp,Supplied V1 archive,User-supplied project artwork,Hot Air Tray Dryer,Fallback render,Original concept from V1
+assets/products/kettle.webp,Supplied V1 archive,User-supplied project artwork,Starch Paste Kettle,Fallback render,Original concept from V1
+assets/products/magnetic.webp,Supplied V1 archive,User-supplied project artwork,Magnetic Mixer,Fallback render,Original concept from V1
+assets/products/mixing.webp,Supplied V1 archive,User-supplied project artwork,Mixing & Storage Vessel,Fallback render,Original concept from V1
+assets/products/multimill.webp,Supplied V1 archive,User-supplied project artwork,Multi Mill,Fallback render,Original concept from V1
+assets/products/octagonal.webp,Supplied V1 archive,User-supplied project artwork,Octagonal Blender,Fallback render,Original concept from V1
+assets/products/oil-tank.webp,Supplied V1 archive,User-supplied project artwork,Milk / Water / Oil Storage Tank,Fallback render,Original concept from V1
+assets/products/planetary.webp,Supplied V1 archive,User-supplied project artwork,Planetary Mixer,Fallback render,Original concept from V1
+assets/products/pressure.webp,Supplied V1 archive,User-supplied project artwork,Industrial / High Pressure Vessel,Fallback render,Original concept from V1
+assets/products/rcvd.webp,Supplied V1 archive,User-supplied project artwork,Rotocone Vacuum Dryer (RCVD),Fallback render,Original concept from V1
+assets/products/reaction.webp,Supplied V1 archive,User-supplied project artwork,Chemical Reaction Vessel,Fallback render,Original concept from V1
+assets/products/reactor-gmp.webp,Supplied V1 archive,User-supplied project artwork,GMP / Semi-GMP Reactors,Fallback render,Original concept from V1
+assets/products/reactor-jacket.webp,Supplied V1 archive,User-supplied project artwork,Jacketed / Double Jacketed Reactors,Fallback render,Original concept from V1
+assets/products/reactor-limpet.webp,Supplied V1 archive,User-supplied project artwork,Limpet Coil Reactors,Fallback render,Original concept from V1
+assets/products/reactor-polyol.webp,Supplied V1 archive,User-supplied project artwork,Polyol Reactors,Fallback render,Original concept from V1
+assets/products/reactor-ss.webp,Supplied V1 archive,User-supplied project artwork,Stainless Steel Reactors,Fallback render,Original concept from V1
+assets/products/reactor.webp,Supplied V1 archive,User-supplied project artwork,Chemical & Pharmaceutical Reactors,Fallback render,Original concept from V1
+assets/products/reboiler.webp,Supplied V1 archive,User-supplied project artwork,Reboiler,Fallback render,Original concept from V1
+assets/products/receiver.webp,Supplied V1 archive,User-supplied project artwork,Air / Nitrogen Receiver Tank,Fallback render,Original concept from V1
+assets/products/ribbon.webp,Supplied V1 archive,User-supplied project artwork,Ribbon Blender,Fallback render,Original concept from V1
+assets/products/rmg.webp,Supplied V1 archive,User-supplied project artwork,Rapid Mixer Granulator (RMG),Fallback render,Original concept from V1
+assets/products/rvd.webp,Supplied V1 archive,User-supplied project artwork,Rotary Vacuum Dryer (RVD),Fallback render,Original concept from V1
+assets/products/sifter.webp,Supplied V1 archive,User-supplied project artwork,Vibro Sifter,Fallback render,Original concept from V1
+assets/products/tank-chemical.webp,Supplied V1 archive,User-supplied project artwork,Chemical / Industrial Storage Tank,Fallback render,Original concept from V1
+assets/products/tank-gmp.webp,Supplied V1 archive,User-supplied project artwork,GMP / Insulated Tank,Fallback render,Original concept from V1
+assets/products/tank-storage.webp,Supplied V1 archive,User-supplied project artwork,Stainless Steel / Mild Steel / Carbon Steel Storage Tank,Fallback render,Original concept from V1
+assets/products/underground.webp,Supplied V1 archive,User-supplied project artwork,Underground Storage Tank,Fallback render,Original concept from V1
+assets/products/v-blender.webp,Supplied V1 archive,User-supplied project artwork,V-Type Blender,Fallback render,Original concept from V1
+assets/products/vtd.webp,Supplied V1 archive,User-supplied project artwork,Vacuum Tray Dryer (VTD),Fallback render,Original concept from V1
+assets/products/water-exchanger.webp,Supplied V1 archive,User-supplied project artwork,Water / Industrial Heat Exchanger,Fallback render,Original concept from V1
+assets/renders/agitator-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Agitator,Alternate view,Concept geometry; requires engineering review
+assets/renders/agitator.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Agitator,Primary view,Concept geometry; requires engineering review
+assets/renders/anfd-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Agitated Nutsche Filter Dryer (ANFD),Alternate view,Concept geometry; requires engineering review
+assets/renders/anfd.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Agitated Nutsche Filter Dryer (ANFD),Primary view,Concept geometry; requires engineering review
+assets/renders/bin-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,BIN Blender,Alternate view,Concept geometry; requires engineering review
+assets/renders/bin.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,BIN Blender,Primary view,Concept geometry; requires engineering review
+assets/renders/cage-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Cage Blender,Alternate view,Concept geometry; requires engineering review
+assets/renders/cage.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Cage Blender,Primary view,Concept geometry; requires engineering review
+assets/renders/column-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Distillation / Process Column,Alternate view,Concept geometry; requires engineering review
+assets/renders/column.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Distillation / Process Column,Primary view,Concept geometry; requires engineering review
+assets/renders/condenser-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Condenser,Alternate view,Concept geometry; requires engineering review
+assets/renders/condenser.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Condenser,Primary view,Concept geometry; requires engineering review
+assets/renders/contra-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Contra Rotary Mixer,Alternate view,Concept geometry; requires engineering review
+assets/renders/contra.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Contra Rotary Mixer,Primary view,Concept geometry; requires engineering review
+assets/renders/double-cone-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Double Cone Blender,Alternate view,Concept geometry; requires engineering review
+assets/renders/double-cone.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Double Cone Blender,Primary view,Concept geometry; requires engineering review
+assets/renders/egg-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Egg Shape Blender,Alternate view,Concept geometry; requires engineering review
+assets/renders/egg.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Egg Shape Blender,Primary view,Concept geometry; requires engineering review
+assets/renders/exchanger-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Shell & Tube Heat Exchanger,Alternate view,Concept geometry; requires engineering review
+assets/renders/exchanger.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Shell & Tube Heat Exchanger,Primary view,Concept geometry; requires engineering review
+assets/renders/falling-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Falling Film Heat Exchanger,Alternate view,Concept geometry; requires engineering review
+assets/renders/falling.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Falling Film Heat Exchanger,Primary view,Concept geometry; requires engineering review
+assets/renders/fbd-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Fluid Bed Dryer (FBD),Alternate view,Concept geometry; requires engineering review
+assets/renders/fbd.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Fluid Bed Dryer (FBD),Primary view,Concept geometry; requires engineering review
+assets/renders/fbp-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Fluid Bed Processor (FBP),Alternate view,Concept geometry; requires engineering review
+assets/renders/fbp.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Fluid Bed Processor (FBP),Primary view,Concept geometry; requires engineering review
+assets/renders/homogenizer-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Homogenizer,Alternate view,Concept geometry; requires engineering review
+assets/renders/homogenizer.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Homogenizer,Primary view,Concept geometry; requires engineering review
+assets/renders/horizontal-tank-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Vertical / Horizontal Storage Tank,Alternate view,Concept geometry; requires engineering review
+assets/renders/horizontal-tank.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Vertical / Horizontal Storage Tank,Primary view,Concept geometry; requires engineering review
+assets/renders/hot-air-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Hot Air Tray Dryer,Alternate view,Concept geometry; requires engineering review
+assets/renders/hot-air.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Hot Air Tray Dryer,Primary view,Concept geometry; requires engineering review
+assets/renders/kettle-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Starch Paste Kettle,Alternate view,Concept geometry; requires engineering review
+assets/renders/kettle.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Starch Paste Kettle,Primary view,Concept geometry; requires engineering review
+assets/renders/magnetic-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Magnetic Mixer,Alternate view,Concept geometry; requires engineering review
+assets/renders/magnetic.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Magnetic Mixer,Primary view,Concept geometry; requires engineering review
+assets/renders/mixing-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Mixing & Storage Vessel,Alternate view,Concept geometry; requires engineering review
+assets/renders/mixing.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Mixing & Storage Vessel,Primary view,Concept geometry; requires engineering review
+assets/renders/multimill-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Multi Mill,Alternate view,Concept geometry; requires engineering review
+assets/renders/multimill.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Multi Mill,Primary view,Concept geometry; requires engineering review
+assets/renders/octagonal-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Octagonal Blender,Alternate view,Concept geometry; requires engineering review
+assets/renders/octagonal.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Octagonal Blender,Primary view,Concept geometry; requires engineering review
+assets/renders/oil-tank-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Milk / Water / Oil Storage Tank,Alternate view,Concept geometry; requires engineering review
+assets/renders/oil-tank.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Milk / Water / Oil Storage Tank,Primary view,Concept geometry; requires engineering review
+assets/renders/planetary-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Planetary Mixer,Alternate view,Concept geometry; requires engineering review
+assets/renders/planetary.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Planetary Mixer,Primary view,Concept geometry; requires engineering review
+assets/renders/pressure-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Industrial / High Pressure Vessel,Alternate view,Concept geometry; requires engineering review
+assets/renders/pressure.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Industrial / High Pressure Vessel,Primary view,Concept geometry; requires engineering review
+assets/renders/rcvd-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Rotocone Vacuum Dryer (RCVD),Alternate view,Concept geometry; requires engineering review
+assets/renders/rcvd.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Rotocone Vacuum Dryer (RCVD),Primary view,Concept geometry; requires engineering review
+assets/renders/reaction-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Chemical Reaction Vessel,Alternate view,Concept geometry; requires engineering review
+assets/renders/reaction.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Chemical Reaction Vessel,Primary view,Concept geometry; requires engineering review
+assets/renders/reactor-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Chemical & Pharmaceutical Reactors,Alternate view,Concept geometry; requires engineering review
+assets/renders/reactor-gmp-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,GMP / Semi-GMP Reactors,Alternate view,Concept geometry; requires engineering review
+assets/renders/reactor-gmp.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,GMP / Semi-GMP Reactors,Primary view,Concept geometry; requires engineering review
+assets/renders/reactor-jacket-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Jacketed / Double Jacketed Reactors,Alternate view,Concept geometry; requires engineering review
+assets/renders/reactor-jacket.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Jacketed / Double Jacketed Reactors,Primary view,Concept geometry; requires engineering review
+assets/renders/reactor-limpet-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Limpet Coil Reactors,Alternate view,Concept geometry; requires engineering review
+assets/renders/reactor-limpet-hero.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Limpet Coil Reactors,Primary view,Concept geometry; requires engineering review
+assets/renders/reactor-limpet.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Limpet Coil Reactors,Primary view,Concept geometry; requires engineering review
+assets/renders/reactor-polyol-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Polyol Reactors,Alternate view,Concept geometry; requires engineering review
+assets/renders/reactor-polyol.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Polyol Reactors,Primary view,Concept geometry; requires engineering review
+assets/renders/reactor-ss-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Stainless Steel Reactors,Alternate view,Concept geometry; requires engineering review
+assets/renders/reactor-ss.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Stainless Steel Reactors,Primary view,Concept geometry; requires engineering review
+assets/renders/reactor.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Chemical & Pharmaceutical Reactors,Primary view,Concept geometry; requires engineering review
+assets/renders/reboiler-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Reboiler,Alternate view,Concept geometry; requires engineering review
+assets/renders/reboiler.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Reboiler,Primary view,Concept geometry; requires engineering review
+assets/renders/receiver-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Air / Nitrogen Receiver Tank,Alternate view,Concept geometry; requires engineering review
+assets/renders/receiver.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Air / Nitrogen Receiver Tank,Primary view,Concept geometry; requires engineering review
+assets/renders/ribbon-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Ribbon Blender,Alternate view,Concept geometry; requires engineering review
+assets/renders/ribbon.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Ribbon Blender,Primary view,Concept geometry; requires engineering review
+assets/renders/rmg-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Rapid Mixer Granulator (RMG),Alternate view,Concept geometry; requires engineering review
+assets/renders/rmg.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Rapid Mixer Granulator (RMG),Primary view,Concept geometry; requires engineering review
+assets/renders/rvd-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Rotary Vacuum Dryer (RVD),Alternate view,Concept geometry; requires engineering review
+assets/renders/rvd.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Rotary Vacuum Dryer (RVD),Primary view,Concept geometry; requires engineering review
+assets/renders/sifter-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Vibro Sifter,Alternate view,Concept geometry; requires engineering review
+assets/renders/sifter.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Vibro Sifter,Primary view,Concept geometry; requires engineering review
+assets/renders/tank-chemical-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Chemical / Industrial Storage Tank,Alternate view,Concept geometry; requires engineering review
+assets/renders/tank-chemical.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Chemical / Industrial Storage Tank,Primary view,Concept geometry; requires engineering review
+assets/renders/tank-gmp-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,GMP / Insulated Tank,Alternate view,Concept geometry; requires engineering review
+assets/renders/tank-gmp.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,GMP / Insulated Tank,Primary view,Concept geometry; requires engineering review
+assets/renders/tank-storage-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Stainless Steel / Mild Steel / Carbon Steel Storage Tank,Alternate view,Concept geometry; requires engineering review
+assets/renders/tank-storage.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Stainless Steel / Mild Steel / Carbon Steel Storage Tank,Primary view,Concept geometry; requires engineering review
+assets/renders/underground-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Underground Storage Tank,Alternate view,Concept geometry; requires engineering review
+assets/renders/underground.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Underground Storage Tank,Primary view,Concept geometry; requires engineering review
+assets/renders/v-blender-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,V-Type Blender,Alternate view,Concept geometry; requires engineering review
+assets/renders/v-blender.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,V-Type Blender,Primary view,Concept geometry; requires engineering review
+assets/renders/vtd-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Vacuum Tray Dryer (VTD),Alternate view,Concept geometry; requires engineering review
+assets/renders/vtd.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Vacuum Tray Dryer (VTD),Primary view,Concept geometry; requires engineering review
+assets/renders/water-exchanger-alt.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Water / Industrial Heat Exchanger,Alternate view,Concept geometry; requires engineering review
+assets/renders/water-exchanger.webp,V1 mesh adapted for V2 / Blender,Project-created and user-supplied source,Water / Industrial Heat Exchanger,Primary view,Concept geometry; requires engineering review

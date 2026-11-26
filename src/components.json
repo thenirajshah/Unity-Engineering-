@@ -1,0 +1,29 @@
+{
+  "reactor-limpet": [
+    ["Agitator drive","The top-mounted motor and drive transfer torque through the vessel head.",0.72,0.33],
+    ["Limpet coil","A half-pipe thermal circuit is welded to the vessel shell.",1.5,0.1],
+    ["Discharge","A bottom connection supports draining and product transfer.",0.8,-0.34]
+  ],
+  "exchanger": [
+    ["Channel head","The channel head distributes tube-side flow into the bundle.",1.45,0.16],
+    ["Shell connections","Flow enters and leaves the enclosed shell through dedicated connections.",0.22,0.35],
+    ["Saddles","Saddles support the horizontal shell. Any fixed and sliding arrangements depend on the design.",0.65,-0.22]
+  ],
+  "pressure": [
+    ["Dished head","The formed head closes the shell and provides locations for equipment connections.",0.66,0.35],
+    ["Flanged nozzle","Nozzles provide connections for flow, instruments or protection devices.",1.49,0.12]
+  ],
+  "anfd": [
+    ["Agitator drive","The drive assembly moves the agitator during cake processing.",0.7,0.44],
+    ["Vessel jacket","The jacket can support application-specific heating or cooling duties.",1.45,0.03]
+  ],
+  "ribbon": [
+    ["Trough and cover","The cover encloses the chamber that contains the blending assembly.",0.63,0.45],
+    ["Drive end","The end-mounted drive turns the horizontal ribbon shaft.",1.4,0.13],
+    ["Outlet","Product is discharged through a lower connection.",0.5,-0.25]
+  ],
+  "rmg": [
+    ["Batch bowl","The bowl contains the materials during mixing and wet granulation.",0.42,0.42],
+    ["Discharge assembly","The discharge connection transfers granules to the next process stage.",1.45,0.05]
+  ]
+}
