@@ -39,7 +39,9 @@ class Document(HTMLParser):
             self.description = data.get('content')
         if tag == 'img':
             assert 'alt' in data and 'width' in data and 'height' in data
-        self.links.extend(data[key] for key in ('src','href','srcset') if key in data)
+        self.links.extend(data[key] for key in ('src','href') if key in data)
+        if 'srcset' in data:
+            self.links.extend(candidate.strip().split()[0] for candidate in data['srcset'].split(','))
 
     def handle_endtag(self, tag):
         if tag == 'title':
@@ -50,7 +52,7 @@ class Document(HTMLParser):
             self.title += data
 
 assert len(products) == 23
-assert len(pages) == 43
+assert len(pages) == 44
 for path in pages:
     document = Document()
     document.feed(path.read_text())
@@ -80,6 +82,8 @@ for p in products:
     assert f'/assets/{approved["asset"]}' in content
     assert approved['label'] in content and 'Image pending' not in content
     assert 'Capacity &amp; sizing' in content
+    assert 'Zoom equipment image' in content
+    assert 'https://wa.me/919934969351?text=' in content
     for metric, value in metrics(p):
         assert escape(metric['label']) in content
         expected = value_text(value) if value else units_text(metric)

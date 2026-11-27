@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const products = require('../src/products.json');
+const categories = require('../src/categories.json');
 
 const origin = 'https://unity-engineering.test';
 const types = {
@@ -46,14 +47,23 @@ async function run() {
   const page = await context.newPage();
   page.setDefaultTimeout(12000);
   page.on('pageerror', (error) => errors.push(String(error)));
-  for (const width of [360,390,768,1024,1440,1920]) {
-    await page.setViewportSize({width, height:900});
-    const routes = ['/', '/products/', '/quotation/', '/products/limpet-coil-reactors/'];
-    if ([360,1440].includes(width)) {
-      routes.push('/about/', '/manufacturing/', '/infrastructure/', '/quality/', '/industries/', '/gallery/', '/catalogue/', '/privacy/', '/contact/');
+  page.on('console', (message) => {
+    if (message.type() === 'error' && !/Failed to load resource/.test(message.text())) errors.push(message.text());
+  });
+  page.on('response', (response) => {
+    if (response.status() >= 400 && new URL(response.url()).pathname.startsWith('/assets/')) {
+      errors.push(`${response.status()} ${response.url()}`);
     }
+  });
+  const routes = fs.readdirSync('dist', { recursive:true })
+    .filter(name => name.endsWith('index.html'))
+    .map(name => '/' + name.replace(/index\.html$/, ''));
+  assert.equal(routes.length, 43);
+  for (const width of [320,375,430,768,1024,1440,1920,2560]) {
+    await page.setViewportSize({width, height:900});
     for (const route of routes) {
-      await page.goto(origin + route);
+      const response = await page.goto(origin + route);
+      assert.equal(response.status(), 200, route);
       assert(await page.locator('h1').isVisible(), route);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth
         ? [...document.querySelectorAll('body *')].filter(element => element.getBoundingClientRect().right > innerWidth + 1)
@@ -61,7 +71,7 @@ async function run() {
         : []);
       assert.deepEqual(overflow, [], `Overflow at ${width} on ${route}`);
     }
-    if ([390,768,1440].includes(width)) {
+    if ([375,768,1440].includes(width)) {
       await page.goto(origin + '/');
       await page.locator('.hero-art img').evaluate(image => image.decode());
       await page.screenshot({path:`test-results/home-${width}.png`});
@@ -77,6 +87,17 @@ async function run() {
   assert.equal(await page.getByRole('button',{name:'Menu',exact:true}).getAttribute('aria-expanded'), 'false');
 
   await page.setViewportSize({width:1440,height:950});
+  await page.goto(origin + '/');
+  assert.equal(await page.locator('.hero h1').evaluate(heading => getComputedStyle(heading).animationName), 'none');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  assert.equal(await page.locator('.hero h1').evaluate(heading => getComputedStyle(heading).animationName), 'intro');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.locator('.mega summary').focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator('.mega-grid a').count(), 29);
+  await page.keyboard.press('Escape');
+  assert.equal(await page.locator('.mega summary').evaluate(el => el === document.activeElement), true);
+
   await page.goto(origin + '/products/');
   await page.locator('.card img').evaluateAll(images => Promise.all(images.slice(0,3).map(image => image.decode())));
   await page.screenshot({path:'test-results/catalogue-1440.png'});
@@ -92,6 +113,30 @@ async function run() {
   assert.equal(await page.locator('#count').textContent(),'7 equipment entries');
   await page.getByRole('button',{name:'Clear filters'}).click();
   assert.equal(await page.locator('#count').textContent(),'23 equipment entries');
+  for (const [index] of categories.entries()) {
+    await page.locator('#category').selectOption(String(index));
+    assert.equal(await page.locator('.card:visible').count(), products.filter(product => product.cat === index).length);
+  }
+
+  await page.goto(origin + '/products/limpet-coil-reactors/');
+  const galleryPhoto = page.locator('.product-image-link img');
+  await galleryPhoto.evaluate(image => image.decode());
+  await page.screenshot({path:'test-results/reactor-1440.png'});
+  await page.getByRole('button',{name:'Component detail'}).click();
+  assert.match(await galleryPhoto.getAttribute('src'), /-crop\.webp/);
+  await page.getByRole('link',{name:'Zoom equipment image'}).click();
+  await page.locator('.image-dialog img').evaluate(image => image.decode());
+  assert(await page.getByRole('dialog',{name:'Equipment image'}).isVisible());
+  await page.keyboard.press('Escape');
+  await page.getByRole('button',{name:'Full equipment'}).click();
+  assert(!/-crop\.webp/.test(await galleryPhoto.getAttribute('src')));
+  const productWhatsApp = new URL(await page.getByRole('link',{name:'Enquire on WhatsApp'}).getAttribute('href'));
+  assert.equal(productWhatsApp.pathname, '/919934969351');
+  assert(productWhatsApp.searchParams.get('text').includes('Limpet Coil Reactors'));
+  await page.goto(origin + '/manufacturing/');
+  await page.locator('.editorial-hero img').evaluate(image => image.decode());
+  await page.screenshot({path:'test-results/manufacturing-1440.png'});
+
   await page.goto(origin + '/quotation/?equipment=limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-name').inputValue(),'limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-category').inputValue(),'0');
@@ -141,6 +186,8 @@ async function run() {
     const response = await page.goto(origin + '/products/' + p.slug + '/');
     assert.equal(response.status(),200);
     assert.equal(await page.locator('h1').textContent(),p.title);
+    assert.equal(await page.locator('.product-hero [href^="/quotation/"]').getAttribute('href'), '/quotation/?equipment=' + p.slug);
+    await page.locator('.product-image-link img').evaluate(image => image.decode());
     if (!viewers.includes(p.kind)) continue;
     await page.getByRole('button',{name:'Launch interactive 3D'}).click();
     await page.locator('.viewer.running').waitFor({timeout:12000});
@@ -169,7 +216,7 @@ async function run() {
   await page.getByRole('button',{name:'Launch interactive 3D'}).click();
   await page.locator('.viewer-status').getByText('Interactive 3D is unavailable.').waitFor();
   assert(await page.locator('.viewer-still').isVisible());
-  for (const [slug] of require('../src/categories.json')) {
+  for (const [slug] of categories) {
     assert.equal((await page.goto(origin + '/products/categories/' + slug + '/')).status(),200);
   }
   await page.goto(origin + '/industries/');
@@ -199,7 +246,11 @@ async function run() {
     viewport: innerWidth
   }));
   fs.writeFileSync('test-results/browser-metrics.json',JSON.stringify(timing,null,2));
-  console.log('Chromium passed responsive layout, navigation, products, categories, catalogue search, quotation draft, five GLBs, component views, cutaway, exploded assembly, fallback, 404 and PDF checks.');
+  await page.setViewportSize({width:390,height:900});
+  await page.goto(origin);
+  await page.locator('.hero-art img').evaluate(image => image.decode());
+  await page.screenshot({path:'test-results/home-390.png'});
+  console.log('Chromium passed all 43 routes at eight viewport widths, navigation, zoom, product WhatsApp, filters, quotation drafts, five GLBs, component views, cutaway, exploded assembly, fallback, 404 and PDF checks.');
   await browser.close();
 }
 run().catch((error) => { console.error(error); process.exit(1); });

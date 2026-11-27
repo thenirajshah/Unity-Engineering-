@@ -32,6 +32,55 @@ navigation.addEventListener('click', (event) => {
   if (event.target.closest('a')) closeMenu();
 });
 
+const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+if (motion.matches && 'IntersectionObserver' in window) {
+  const dismiss = () => document.querySelectorAll('.revealed').forEach((element) => {
+    element.classList.remove('revealed');
+  });
+  const reveal = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      if (motion.matches && entry.boundingClientRect.top > innerHeight * 0.24) {
+        entry.target.classList.add('revealed');
+      }
+      reveal.unobserve(entry.target);
+    }
+  }, { threshold: 0.16 });
+  for (const element of document.querySelectorAll('[data-reveal]')) reveal.observe(element);
+  motion.addEventListener('change', dismiss, { once: true });
+}
+
+const productGallery = document.querySelector('[data-product-gallery]');
+if (productGallery) {
+  const zoom = productGallery.querySelector('.product-image-link');
+  const image = zoom.querySelector('img');
+  const original = { src: image.src, srcset: image.srcset, alt: image.alt };
+  const dialog = productGallery.querySelector('dialog');
+  const dialogImage = dialog.querySelector('img');
+  const views = [...productGallery.querySelectorAll('[data-gallery-src]')];
+  if (views.length) productGallery.querySelector('.gallery-controls').hidden = false;
+  for (const [index, view] of views.entries()) {
+    view.addEventListener('click', () => {
+      const active = index === 0;
+      const source = active ? original.src : view.dataset.gallerySrc;
+      if (active && original.srcset) image.srcset = original.srcset;
+      else image.removeAttribute('srcset');
+      image.src = source;
+      image.alt = active ? original.alt : `Component detail from ${original.alt.toLowerCase()}`;
+      zoom.href = source;
+      for (const option of views) option.setAttribute('aria-pressed', String(option === view));
+    });
+  }
+  zoom.addEventListener('click', (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || !dialog.showModal) return;
+    event.preventDefault();
+    dialogImage.src = zoom.href;
+    dialogImage.alt = image.alt;
+    dialogImage.hidden = false;
+    dialog.showModal();
+  });
+}
+
 const search = document.querySelector('#search');
 const category = document.querySelector('#category');
 const grid = document.querySelector('#product-grid');
@@ -65,6 +114,10 @@ if (grid) {
     filter();
     search.focus();
   });
+  const requestedCategory = new URLSearchParams(location.search).get('category');
+  if ([...category.options].some((option) => option.value === requestedCategory)) {
+    category.value = requestedCategory;
+  }
   filter();
 
   const dialog = document.querySelector('#preview-dialog');
@@ -77,7 +130,7 @@ if (grid) {
       image.hidden = !source;
       dialog.querySelector('.image-pending').hidden = Boolean(source);
       if (source) {
-        image.src = source.src;
+        image.src = button.dataset.image;
         image.alt = source.alt;
       } else {
         image.removeAttribute('src');

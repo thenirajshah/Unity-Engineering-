@@ -1,8 +1,117 @@
 {
-  "about": ["About Unity Engineering","Engineering excellence since 2006.","Unity Engineering fabricates pharmaceutical, chemical and industrial process equipment in Ankleshwar, Gujarat. Established in 2006 and owned by Niraj Kumar Shah, the business focuses on equipment configured around customer-specific process and fabrication requirements.",["Engineering philosophy","Process duty, operating conditions, maintenance access and material compatibility inform the equipment configuration. The design basis is agreed with the customer before fabrication proceeds."]],
-  "manufacturing": ["Manufacturing Capabilities","From drawing to dispatch.","A proposed fabrication workflow for process equipment. Activities and responsibility are agreed for each project.",["Engineering and material selection","Drawing preparation, material selection, marking and cutting establish the fabrication basis."],["Forming and vessel fabrication","Plasma cutting, plate rolling and dish end forming prepare parts for shell, limpet coil, jacket and nozzle fabrication."],["Fit-up and assembly","Fit-up, welding and machining are coordinated with agitator, shaft and housing assembly where required."],["Finishing, inspection and dispatch","Surface finishing, buffing, polishing, inspection, testing and final assembly precede dispatch as agreed in the project scope."]],
-  "infrastructure": ["Infrastructure","Based in Ankleshwar GIDC.","The business operates from Plot No. 5122, 4th S Rd, Ankleshwar GIDC, Ankleshwar, Gujarat 393002, India.",["Project coordination","Discuss site interfaces, equipment envelope, handling and dispatch constraints at enquiry stage. The project scope defines fabrication activities and facilities required."]],
-  "quality": ["Quality Assurance","Quality begins with the design basis.","Inspection and acceptance requirements depend on the equipment duty and approved project specification.",["Engineering review","Review operating conditions, materials and interfaces before finalizing drawings."],["Inspection planning","Agree dimensional checks, finish criteria, test requirements and documentation with the customer."],["Final verification","Confirm equipment configuration and project handover requirements before dispatch."]],
-  "industries": ["Industries Served","Equipment for process industries.","These are relevant industrial applications for the equipment families in the Unity Engineering catalogue.",["Pharmaceutical Industry · API Manufacturing","Reactors, vacuum dryers, filtration equipment and granulation systems support formulation and intermediate processing."],["Chemical Industry · Fine Chemicals · Specialty Chemicals","Temperature-controlled reactors, process vessels and separation equipment are selected around reaction and handling requirements."],["Petrochemical Industry · Industrial Process Plants","Heat exchangers, condensers, receivers and process columns support utility, containment and separation duties."],["Food Processing · Dairy Industry · Cosmetics","Storage tanks, blenders and mixers support compatible liquid, powder and paste-processing duties."]],
-  "privacy": ["Privacy Policy","How enquiries are handled.","The website does not store submitted form entries. Form values are used in your browser to draft an email or WhatsApp message. Your chosen service receives the information when you continue through that service.",["Information shared with Unity Engineering","If you send an enquiry, the company receives the contact and project information you choose to share and may use it to respond or follow up."],["Website and hosting","The site does not use analytics or advertising trackers. The hosting provider may process technical request data to deliver and protect the website."],["Contact","Privacy questions can be addressed to Nirajkumarshah17@gmail.com."]]
+  "about": [
+    "About Unity Engineering",
+    "Engineering excellence since 2006.",
+    "Unity Engineering fabricates pharmaceutical, chemical and industrial process equipment in Ankleshwar, Gujarat. Established in 2006 and owned by Niraj Kumar Shah, the business focuses on equipment configured around customer-specific process and fabrication requirements.",
+    [
+      "Engineering philosophy",
+      "Process duty, operating conditions, maintenance access and material compatibility inform the equipment configuration. The design basis is agreed with the customer before fabrication proceeds."
+    ]
+  ],
+  "manufacturing": [
+    "Manufacturing Capabilities",
+    "From drawing to dispatch.",
+    "A proposed fabrication workflow for process equipment. Activities and responsibility are agreed for each project.",
+    [
+      "Engineering and material selection",
+      "Approved drawings, material selection and marking define the fabrication basis. CNC plasma cutting may be specified for suitable plate work."
+    ],
+    [
+      "Forming and vessel fabrication",
+      "Plate rolling and dish-end forming prepare parts for shell, limpet coil, jacket and nozzle fabrication where the equipment requires them."
+    ],
+    [
+      "Fit-up and assembly",
+      "Review fit-up, welding and machining with any agitator, shaft and housing assembly in the agreed scope."
+    ],
+    [
+      "Finishing, inspection and dispatch",
+      "Grinding, polishing and dimensional checks precede final assembly. Specify hydrostatic testing where applicable. Agree acceptance records and dispatch arrangements for each project."
+    ]
+  ],
+  "infrastructure": [
+    "Infrastructure",
+    "Based in Ankleshwar GIDC.",
+    "The business operates from Plot No. 5122, 4th S Rd, Ankleshwar GIDC, Ankleshwar, Gujarat 393002, India.",
+    [
+      "Project coordination",
+      "Discuss site interfaces, equipment envelope, handling and dispatch constraints at enquiry stage. The project scope defines fabrication activities and facilities required."
+    ]
+  ],
+  "quality": [
+    "Quality Assurance",
+    "Quality begins with the design basis.",
+    "Inspection and acceptance requirements depend on the equipment duty and approved project specification.",
+    [
+      "Engineering review",
+      "Review operating conditions, materials and interfaces before finalizing drawings."
+    ],
+    [
+      "Inspection planning",
+      "Agree dimensional checks, finish criteria, test requirements and documentation with the customer."
+    ],
+    [
+      "Final verification",
+      "Confirm equipment configuration and project handover requirements before dispatch."
+    ]
+  ],
+  "industries": [
+    "Industries Served",
+    "Equipment for process industries.",
+    "These are relevant industrial applications for the equipment families in the Unity Engineering catalogue.",
+    [
+      "Pharmaceutical Industry · API Manufacturing",
+      "Reactors, vacuum dryers, filtration equipment and granulation systems support formulation and intermediate processing."
+    ],
+    [
+      "Chemical Industry · Fine Chemicals · Specialty Chemicals",
+      "Temperature-controlled reactors, process vessels and separation equipment are selected around reaction and handling requirements."
+    ],
+    [
+      "Petrochemical Industry · Industrial Process Plants",
+      "Heat exchangers, condensers, receivers and process columns support utility, containment and separation duties."
+    ],
+    [
+      "Food Processing · Dairy Industry · Cosmetics",
+      "Storage tanks, blenders and mixers support compatible liquid, powder and paste-processing duties."
+    ]
+  ],
+  "privacy": [
+    "Privacy Policy",
+    "How enquiries are handled.",
+    "The website does not store submitted form entries. Form values are used in your browser to draft an email or WhatsApp message. Your chosen service receives the information when you continue through that service.",
+    [
+      "Information shared with Unity Engineering",
+      "If you send an enquiry, the company receives the contact and project information you choose to share and may use it to respond or follow up."
+    ],
+    [
+      "Website and hosting",
+      "The site does not use analytics or advertising trackers. The hosting provider may process technical request data to deliver and protect the website."
+    ],
+    [
+      "Contact",
+      "Privacy questions can be addressed to Nirajkumarshah17@gmail.com."
+    ]
+  ],
+  "engineering": [
+    "Engineering Capabilities",
+    "From process duty to fabrication.",
+    "Unity Engineering fabricates equipment to agreed requirements for reaction, heat transfer, separation, containment and batch processing.",
+    [
+      "Establish the design basis",
+      "Provide the process fluid, operating and design conditions, batch or flow basis and equipment interfaces. For reactors, specify working volume in kL."
+    ],
+    [
+      "Configure the equipment",
+      "Review product-contact and structural materials, thermal surfaces, access, support and any agitation requirements appropriate to the duty."
+    ],
+    [
+      "Plan plant interfaces",
+      "Confirm nozzle orientation, equipment envelope, maintenance clearances and handling requirements with the project team."
+    ],
+    [
+      "Agree verification and handover",
+      "Document drawing approvals, inspection scope, test requirements and acceptance records in the project specification."
+    ]
+  ]
 }

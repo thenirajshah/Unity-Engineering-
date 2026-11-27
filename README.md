@@ -1,4 +1,4 @@
-# Unity Engineering V2.2
+# Unity Engineering V3.0
 
 Static industrial catalogue and business enquiry site for Unity Engineering, Ankleshwar, Gujarat. The site has 23 product details, six equipment categories, a PDF catalogue and five on-demand WebGL equipment viewers.
 
@@ -34,8 +34,8 @@ Set `CHROMIUM_PATH` to use an existing Chromium installation. The browser test w
 - Use approved operating data or application-specific wording if values are unavailable. Verify photographs and technical geometry before removing concept labels.
 - Use `python3 scripts/catalogue.py` with Pillow and ReportLab to regenerate the PDF after any equipment or branding update.
 - Run `node scripts/models.cjs` to regenerate the eight GLBs. To render equipment again, run `node scripts/geometry.cjs`, then `blender -b -t 8 -P scripts/render.py` and `python3 scripts/optimize.py` with Pillow installed.
-- Maintain [ASSETS.csv](ASSETS.csv) when adding approved imagery, especially if it comes from a third party.
+- Maintain [ASSETS.csv](ASSETS.csv) when adding imagery. The primary image is required for every published product. Optional responsive, card, thumbnail and detail-crop paths live alongside the primary in its image record. Regenerate these variants when the primary changes.
 
 The enquiry form prepares a draft locally. Visitors review and send through email or WhatsApp. The website collects no stored submissions, uploads or analytics.
 
-[Deployment](docs/DEPLOYMENT.md) · [Audit](docs/AUDIT.md) · [Verification report](docs/VERIFICATION.md) · [Changelog](CHANGELOG.md)
+[Deployment](docs/DEPLOYMENT.md) · [V3 audit](docs/WEBSITE_AUDIT.md) · [Test report](docs/TEST_REPORT.md) · [V3 delivery report](docs/FINAL_UPGRADE_REPORT.md) · [Changelog](CHANGELOG.md)

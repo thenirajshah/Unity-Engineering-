@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0
+
+- Rebuilt the homepage and page layouts in a graphite and warm-paper design system with self-hosted typography.
+- Added engineering capabilities, a complete equipment mega menu, image zoom and product-specific WhatsApp enquiries.
+- Introduced a new reactor hero, reviewed the 23 equipment images and rebuilt the PDF from the same catalogue data.
+- Added native reduced-motion-aware animation and expanded responsive verification.
+
 ## 2.2.0
 
 - Refreshed the homepage, catalogue, product details and company pages around equipment selection and project enquiries.
