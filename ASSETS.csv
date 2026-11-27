@@ -1,5 +1,5 @@
 File,Source,Licence or rights basis,Equipment / subject,Type,Verification status
-assets/catalogue.pdf,Unity Engineering V3 catalogue,Project-created and user-supplied source,23 equipment entries,Catalogue,Catalogue count verified; renders conceptual
+assets/catalogue.pdf,Unity Engineering V3 catalogue,Project-created and user-supplied source,23 equipment entries,Catalogue,One full-page concept image per product; embedded Bitstream Vera fonts
 assets/categories/dryers-filtration.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,dryers-filtration,Category banner,Concept geometry; requires engineering review
 assets/categories/granulation-milling-sifting.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,granulation-milling-sifting,Category banner,Concept geometry; requires engineering review
 assets/categories/heat-exchangers-columns.webp,V2 Blender alternate view cropped for category banner,Project-created from V1 geometry,heat-exchangers-columns,Category banner,Concept geometry; requires engineering review
@@ -309,3 +309,4 @@ assets/equipment/ribbon-blender-card.webp,equipment/ribbon-blender-v3.webp,Same 
 assets/equipment/octagonal-blender-card.webp,equipment/octagonal-blender-v3.webp,Same rights as primary,Octagonal Blender,Catalogue card,Derived from the published equipment illustration with extended background
 assets/equipment/double-cone-blender-card.webp,equipment/double-cone-blender-v3.webp,Same rights as primary,Double Cone Blender,Catalogue card,Derived from the published equipment illustration with extended background
 assets/v3/logo-nav.webp,Supplied V1 archive,User-supplied brand assets,Unity Engineering,Responsive brand asset,Original geometry; reduced pixel dimensions for navigation
+assets/fonts/bitstream-vera-license.txt,ReportLab distribution,Bitstream Vera font licence,Embedded catalogue typefaces,Licence notice,Original font copyright and permission notice

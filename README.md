@@ -29,7 +29,6 @@ Set `CHROMIUM_PATH` to use an existing Chromium installation. The browser test w
 
 - Update `src/products.json` for names, descriptions, process principles, applications and features. Keep published slugs stable. Add an explicit redirect if a slug changes.
 - Update `src/categories.json` for equipment families. The build checks the agreed inventory of six categories and 23 entries.
-- Each product's `sizing_profile` selects the relevant metrics and units from `src/sizing.json`. For an engineering-approved figure, add a `verified_sizing` entry keyed by metric, with `value`, `unit` and a `source` reference. Use `upper` for a range and `basis` for operating conditions. Column feed rates and blender batch weights require a basis. Only add values supported by Unity Engineering evidence.
 - Update `src/pages.json` for company and process content and `src/components.json` for model component notes.
 - Use approved operating data or application-specific wording if values are unavailable. Verify photographs and technical geometry before removing concept labels.
 - Use `python3 scripts/catalogue.py` with Pillow and ReportLab to regenerate the PDF after any equipment or branding update.

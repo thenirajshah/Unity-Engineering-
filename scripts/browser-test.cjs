@@ -86,6 +86,11 @@ async function run() {
   await page.keyboard.press('Escape');
   assert.equal(await page.getByRole('button',{name:'Menu',exact:true}).getAttribute('aria-expanded'), 'false');
 
+  await page.goto(origin + '/products/');
+  const mobilePhoto = await page.locator('.card img').first().boundingBox();
+  assert(mobilePhoto.width >= 340 && mobilePhoto.height >= 340);
+  await page.screenshot({path:'test-results/catalogue-390.png'});
+
   await page.setViewportSize({width:1440,height:950});
   await page.goto(origin + '/');
   assert.equal(await page.locator('.hero h1').evaluate(heading => getComputedStyle(heading).animationName), 'none');
@@ -100,6 +105,8 @@ async function run() {
 
   await page.goto(origin + '/products/');
   await page.locator('.card img').evaluateAll(images => Promise.all(images.slice(0,3).map(image => image.decode())));
+  const desktopPhoto = await page.locator('.card img').first().boundingBox();
+  assert(desktopPhoto.width >= 600 && desktopPhoto.height >= 600);
   await page.screenshot({path:'test-results/catalogue-1440.png'});
   await page.locator('#search').fill('Limpet coil');
   assert.equal(await page.locator('#count').textContent(),'1 equipment entry');
@@ -140,16 +147,12 @@ async function run() {
   await page.goto(origin + '/quotation/?equipment=limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-name').inputValue(),'limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-category').inputValue(),'0');
-  assert(await page.getByLabel('Working volume (kL, optional)').isVisible());
-  assert(!(await page.locator('#general-sizing').isVisible()));
+  assert.equal(await page.locator('#enquiry').getByText(/capacity|sizing|working volume/i).count(), 0);
   assert.equal(await page.locator('form').evaluate(form => form.checkValidity()), false);
   await page.locator('#equipment-category').selectOption('1');
   assert.equal(await page.locator('#equipment-name').inputValue(),'');
-  assert(await page.locator('#general-sizing').isVisible());
   await page.locator('#equipment-name').selectOption('shell-tube-heat-exchanger');
-  await page.getByLabel('Thermal duty (kW, optional)').fill('35');
-  await page.getByLabel('Heat-transfer area (m², optional)').fill('4.5');
-  for (const [field,value] of Object.entries({name:'Testing',company:'Sample Company',email:'qa@example.test',phone:'+919999999999',requirements:'Example enquiry only'})) {
+  for (const [field,value] of Object.entries({name:'Testing',company:'Sample Company',email:'qa@example.test',phone:'+919999999999',pressure:'3 barg',requirements:'Example enquiry only'})) {
     await page.locator('#'+field).fill(value);
   }
   await page.evaluate(() => { window.open = (url) => { window.draftUrl = url; }; });
@@ -157,8 +160,8 @@ async function run() {
   const draft = new URL(await page.evaluate(() => window.draftUrl));
   assert.equal(draft.origin + draft.pathname,'https://wa.me/919934969351');
   assert(draft.searchParams.get('text').includes('Example enquiry only'));
-  assert(draft.searchParams.get('text').includes('Thermal duty: 35 kW'));
-  assert(draft.searchParams.get('text').includes('Heat-transfer area: 4.5 m²'));
+  assert(draft.searchParams.get('text').includes('Equipment name: Shell & Tube Heat Exchanger'));
+  assert(draft.searchParams.get('text').includes('Design pressure: 3 barg'));
   await page.evaluate(() => {
     const click = HTMLAnchorElement.prototype.click;
     HTMLAnchorElement.prototype.click = function () {
@@ -170,16 +173,10 @@ async function run() {
   const emailDraft = new URL(await page.evaluate(() => window.emailDraft));
   assert.equal(emailDraft.pathname,'Nirajkumarshah17@gmail.com');
   assert(emailDraft.searchParams.get('body').includes('Example enquiry only'));
-  assert(emailDraft.searchParams.get('body').includes('Thermal duty: 35 kW'));
+  assert(emailDraft.searchParams.get('body').includes('Design pressure: 3 barg'));
   assert.equal(await page.locator('#form-status').textContent(),'Review and send the draft in your email app.');
   assert.equal(await page.locator('a[href^="tel:"]').first().getAttribute('href'),'tel:+919934969351');
   assert.equal(await page.locator('a[href^="mailto:"]').first().getAttribute('href'),'mailto:Nirajkumarshah17@gmail.com');
-  await page.goto(origin + '/quotation/?equipment=distillation-process-column');
-  await page.getByLabel('Design feed rate unit').selectOption('m³/h');
-  await page.getByLabel('Design feed rate (optional)').fill('0');
-  assert.equal(await page.locator('#sizing-feed-rate').evaluate(input => input.validity.valid), false);
-  await page.getByLabel('Design feed rate (optional)').fill('2.5');
-  assert.equal(await page.locator('#sizing-feed-rate').evaluate(input => input.validity.valid), true);
 
   const viewers = ['reactor-limpet','exchanger','pressure','anfd','ribbon'];
   for (const p of products) {

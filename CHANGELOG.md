@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.1
+
+- Enlarged online catalogue images and gave each of the 23 equipment entries a full page in the PDF.
+- Removed capacity and sizing fields from the website, equipment enquiries and PDF.
+
 ## 3.0.0
 
 - Rebuilt the homepage and page layouts in a graphite and warm-paper design system with self-hosted typography.

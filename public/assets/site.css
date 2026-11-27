@@ -139,8 +139,6 @@ h3 { font-size: clamp(1.27rem, 2.1vw, 1.85rem); letter-spacing: -.043em; }
 .card :is(h2, h3) a { text-decoration: none; }
 .card :is(h2, h3) a:hover { text-decoration: underline; }
 .card-body > p:not(.kicker) { color: var(--muted); }
-.card-sizing { display: flex; gap: .25rem .55rem; flex-wrap: wrap; margin-top: auto; padding-block: .65rem .3rem; border-top: 1px solid var(--line); font-size: .81rem; }
-.card-sizing span { color: var(--accent); }
 .card-actions { display: flex; gap: .25rem 1rem; flex-wrap: wrap; margin-top: auto; align-items: center; font-size: .83rem; font-weight: 650; }
 .card-actions a, .card-actions button { display: inline-flex; align-items: center; min-height: 34px; }
 .card-actions a:first-child { text-decoration: none; }
@@ -218,6 +216,8 @@ h3 { font-size: clamp(1.27rem, 2.1vw, 1.85rem); letter-spacing: -.043em; }
 .legal-copy h2 { font-size: clamp(1.3rem, 3vw, 2rem); }
 
 .catalog { padding-bottom: clamp(3rem, 6vw, 6rem); }
+.cards.large-photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.large-photos .card img { aspect-ratio: 1; }
 .catalog-controls { display: grid; grid-template-columns: minmax(0,1.45fr) minmax(0,1fr) auto; align-items: end; gap: .75rem; padding: .75rem 0; border-top: 1px solid var(--line); }
 .catalog-controls label, .form-grid label { display: grid; gap: .36rem; font-size: .91rem; font-weight: 650; }
 input, select, textarea { color: var(--ink); border: 1px solid #7f8b94; background: #fff; min-width: 0; width: 100%; min-height: 46px; padding: .57rem .68rem; }
@@ -230,6 +230,8 @@ dialog::backdrop { background: #08101adb; }
 dialog h2 { font-size: 2rem; }
 dialog form { text-align: right; margin-bottom: .6rem; }
 dialog img { width: 100%; aspect-ratio: 1.6; object-fit: contain; margin-bottom: 1rem; background: #273038; }
+#preview-dialog { width: min(46rem, calc(100% - 2rem)); }
+#preview-dialog img { aspect-ratio: auto; max-height: min(53dvh, 36rem); }
 .image-pending { display: grid; width: 100%; min-height: 8rem; aspect-ratio: 1.6; background: var(--navy); color: #c3cbd2; place-items: center; font-size: .88rem; }
 
 .product-hero { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); align-items: start; gap: clamp(1.2rem, 5vw, 5rem); padding-block: clamp(1.75rem, 4vw, 4rem); }
@@ -247,15 +249,9 @@ dialog img { width: 100%; aspect-ratio: 1.6; object-fit: contain; margin-bottom:
 .image-dialog img { max-height: 72dvh; aspect-ratio: auto; margin: 0; }
 .product-nav { margin-top: 1rem; gap: .65rem 1.2rem; }
 .gallery-nav { padding-bottom: 1.5rem; }
-.sizing-summary { margin: 1.15rem 0; padding: 1rem; border: 1px solid var(--line); border-left: 3px solid var(--orange); background: var(--panel); }
-.sizing-summary h2 { font-size: clamp(1.34rem, 2.6vw, 1.82rem); }
-.sizing-status { margin-bottom: .6rem; color: var(--accent); font-size: .88rem; font-weight: 650; }
 .tech div { border-top: 1px solid var(--line); padding-block: .62rem; }
 .tech dt { font: 500 .84rem/1.55 var(--mono); }
 .tech dd { margin: .2rem 0 0; }
-.sizing-summary .tech div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2rem 1rem; }
-.sizing-summary .tech dd { margin: 0; font-weight: 650; }
-.sizing-summary .tech small { display: block; color: var(--muted); font-weight: 400; }
 .detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: clamp(1.2rem, 5vw, 5rem); }
 .engineering-copy h3:not(:first-child) { margin-top: 1.45rem; }
 .engineering-copy p, .spec-rows dd { color: var(--muted); }
@@ -290,12 +286,6 @@ dialog img { width: 100%; aspect-ratio: 1.6; object-fit: contain; margin-bottom:
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1rem; }
 .form-grid:last-child { margin-bottom: 0; }
 .form-grid .wide { grid-column: 1 / -1; }
-#general-sizing { max-width: 33rem; }
-#general-sizing label { display: block; font-weight: 650; }
-#general-sizing span, .form-help { color: var(--muted); font-size: .88rem; font-weight: 400; }
-#general-sizing input { display: block; margin-top: .35rem; }
-.sizing-field { display: grid; grid-template-columns: minmax(0,1fr) minmax(4.8rem,auto); align-items: end; gap: .55rem; }
-.sizing-unit { display: grid; place-items: center; border: 1px solid var(--line); min-height: 46px; padding-inline: .55rem; white-space: nowrap; }
 
 @media (max-width: 1060px) {
   .nav { min-height: 64px; }
@@ -347,6 +337,7 @@ dialog img { width: 100%; aspect-ratio: 1.6; object-fit: contain; margin-bottom:
   .image-grid, .footer-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .catalog-controls { grid-template-columns: minmax(0,1fr) auto; }
   .catalog-controls label:first-child { grid-column: 1 / -1; }
+  .cards.large-photos { grid-template-columns: 1fr; }
   .viewer { min-height: 21rem; }
   .hero-viewer { min-height: 0; }
 }

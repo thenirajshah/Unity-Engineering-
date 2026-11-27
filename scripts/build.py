@@ -6,7 +6,6 @@ from urllib.parse import quote, urlsplit
 import json
 import os
 import shutil
-from sizing import enquiry_profile, metrics, units_text, value_text
 
 ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
@@ -52,19 +51,6 @@ def whatsapp(p):
         f'Hello Unity Engineering, I would like to enquire about {p["title"]}.'
     )
 
-def sizing_block(p):
-    rows = []
-    has_figures = bool(p.get('verified_sizing'))
-    for metric, approved in metrics(p):
-        value = value_text(approved) if approved is not None else units_text(metric)
-        basis = approved.get('basis') if approved is not None else None
-        note = f'<small>{e(basis)}</small>' if basis else ''
-        if approved is None and has_figures:
-            note = '<small>Sizing on request</small>'
-        rows.append(f'<div><dt>{e(metric["label"])}</dt><dd>{e(value)}{note}</dd></div>')
-    availability = '' if has_figures else '<p class="sizing-status">Sizing on request</p>'
-    return f'<div class="sizing-summary"><h2>Capacity &amp; sizing</h2>{availability}<dl class="tech">{"".join(rows)}</dl></div>'
-
 def image(p):
     approval = p.get('approved_image')
     if approval:
@@ -76,7 +62,8 @@ def image(p):
         return '/assets/equipment/' + quote(path.relative_to(root).as_posix())
     return ''
 
-def pic(p, style='', eager=False, variant='primary'):
+def pic(p, style='', eager=False, variant='primary',
+        sizes='(max-width: 700px) 90vw, (max-width: 1024px) 45vw, 36vw'):
     asset = image(p)
     if not asset:
         return f'<div class="image-pending {style}">Image pending</div>'
@@ -89,7 +76,7 @@ def pic(p, style='', eager=False, variant='primary'):
     elif 'small' in approval:
         source_set = (
             f' srcset="/assets/{e(approval["small"])} {approval["small_width"]}w, {e(asset)} {approval["width"]}w"'
-            ' sizes="(max-width: 700px) 90vw, (max-width: 1024px) 45vw, 36vw"'
+            f' sizes="{sizes}"'
         )
     priority = 'fetchpriority="high"' if eager else 'loading="lazy"'
     return f'<img class="{style}" src="{e(asset)}"{source_set} alt="{e(approval["label"])} of {e(p["title"])}" width="{width}" height="{height}" {priority} decoding="async">'
@@ -187,21 +174,20 @@ def intro(label, heading, description, style=''):
 def section(label, heading, content, style='', action=''):
     return f'<section class="band {style}"><div class="shell"><div class="section-head" data-reveal><div><p class="kicker">{e(label)}</p><h2>{e(heading)}</h2></div>{action}</div>{content}</div></section>'
 
-def card(p, preview=False):
+def card(p, preview=False, large=False):
     search = e(' '.join([p['title'],p['desc'],p['kind'],CATEGORIES[p['cat']][1]]), quote=True)
     quick = (f'<button class="link preview" type="button" data-image="{e(image(p))}" data-title="{e(p["title"])}" data-detail="{e(p["desc"])}" hidden>Quick preview</button>' if preview else '')
     heading = 'h2' if preview else 'h3'
-    metric, approved = next(metrics(p))
-    metric_text = value_text(approved) if approved is not None else f'{metric["label"]} · {units_text(metric)}'
-    sizing_status = '' if approved is not None else '<span>Sizing on request</span>'
+    photo = pic(p, sizes='(max-width: 700px) 92vw, (max-width: 1712px) 45vw, 764px') if large else pic(p, variant='card')
     return f'''<article class="card" data-category="{p["cat"]}" data-search="{search}">
-<a class="card-image" href="{url(p)}" tabindex="-1" aria-hidden="true">{pic(p, variant='card')}</a>
+<a class="card-image" href="{url(p)}" tabindex="-1" aria-hidden="true">{photo}</a>
 <div class="card-body"><p class="kicker">{e(CATEGORIES[p["cat"]][1])}</p><{heading}><a href="{url(p)}">{e(p["title"])}</a></{heading}>
-<p>{e(p["desc"])}</p><p class="card-sizing"><strong>{e(metric_text)}</strong>{sizing_status}</p>
+<p>{e(p["desc"])}</p>
 <div class="card-actions"><a href="{url(p)}">View details <span class="arrow-up" aria-hidden="true"></span></a>{quick}<a href="{quoteurl(p)}">Request quotation</a></div></div></article>'''
 
-def cards(products, preview=False):
-    return '<div class="cards">' + ''.join(card(p,preview) for p in products) + '</div>'
+def cards(products, preview=False, large=False):
+    style = 'cards large-photos' if large else 'cards'
+    return f'<div class="{style}">' + ''.join(card(p, preview, large) for p in products) + '</div>'
 
 def viewer(p, hero=False):
     fallback = '' if hero else pic(p, 'viewer-still')
@@ -294,11 +280,11 @@ def build_products():
 <button type="button" class="btn outline" id="clear-filters" disabled>Clear filters</button></div>
 <div class="catalog-status"><p id="count" role="status">{len(PRODUCTS)} equipment entries</p><a href="/assets/catalogue.pdf" download>Download PDF catalogue</a></div>'''
     dialog = '<dialog id="preview-dialog" aria-labelledby="preview-title"><form method="dialog"><button class="link" aria-label="Close quick preview">Close</button></form><img width="640" height="540" alt="" hidden><div class="image-pending">Image pending</div><h2 id="preview-title"></h2><p></p><div class="actions"><a class="btn detail-link">View details</a><a class="btn outline quote-link">Request quotation</a></div></dialog>'
-    page('/products/', 'Process Equipment Catalogue', 'Find reactors, heat exchangers, vessels, dryers and mixers for process equipment fabrication in Ankleshwar, Gujarat.', intro('Process equipment','Find your equipment.',f'Filter {len(PRODUCTS)} configurations by process duty or equipment name.', 'compact-intro')+'<section class="shell catalog">'+filters+f'<p id="no-results" hidden>No equipment matches your search.</p><div id="product-grid">{cards(PRODUCTS,True)}</div>'+dialog+'</section>'+section('Equipment families','Explore by category.',category_cards(),'light'))
+    page('/products/', 'Process Equipment Catalogue', 'Find reactors, heat exchangers, vessels, dryers and mixers for process equipment fabrication in Ankleshwar, Gujarat.', intro('Process equipment','Find your equipment.',f'Filter {len(PRODUCTS)} configurations by process duty or equipment name.', 'compact-intro')+'<section class="shell catalog">'+filters+f'<p id="no-results" hidden>No equipment matches your search.</p><div id="product-grid">{cards(PRODUCTS, preview=True, large=True)}</div>'+dialog+'</section>'+section('Equipment families','Explore by category.',category_cards(),'light'))
     for i,(_,title,description) in enumerate(CATEGORIES):
         products = [p for p in PRODUCTS if p['cat'] == i]
         banner = pic(products[0])
-        page(caturl(i),title,description, '<div class="shell category-hero">'+intro('Equipment category',title,description)+banner+'</div>'+section('Category equipment','Browse equipment.',cards(products), 'light'), [('/products/','Products')])
+        page(caturl(i),title,description, '<div class="shell category-hero">'+intro('Equipment category',title,description)+banner+'</div>'+section('Category equipment','Browse equipment.',cards(products, large=True), 'light'), [('/products/','Products')])
     for p in PRODUCTS:
         title = p['title']
         gallery = product_gallery(p)
@@ -318,7 +304,7 @@ def build_products():
             detail_links.append(('#interactive-model','Interactive 3D'))
         lead = f'''<section class="shell product-hero"><div>
 <p class="kicker">{e(CATEGORIES[p['cat']][1])}</p><h1>{e(title)}</h1><p class="lede">{e(p['desc'])}</p>
-<p class="product-application">{e(p['application'])}</p>{sizing_block(p)}<div class="actions">{product_quote}</div>
+<p class="product-application">{e(p['application'])}</p><div class="actions">{product_quote}</div>
 <nav class="product-nav" aria-label="Product sections">{links(detail_links,'')}</nav></div>{gallery}</section>'''
         content = lead+'<div id="engineering">'+section('Engineering overview','Process and construction.',tech,'light')+'</div>'+viz+(section('Related equipment','Explore related configurations.',cards(related),'light') if related else '')
         schema = {'@context':'https://schema.org','@type':'Product','name':title,'description':p['desc'],'category':CATEGORIES[p['cat']][1]}
@@ -371,7 +357,7 @@ def build_information():
         if slug in ('infrastructure','about'):
             content += section('Contact','Find Unity Engineering.',contact_block())
         page('/'+slug+'/',label,description,content+'<div class="shell">'+quote_banner()+'</div>')
-    contact_intro = intro('Contact','Talk to Unity Engineering.','Tell us about your process duty, required sizing and project timeline.','compact-intro')
+    contact_intro = intro('Contact','Talk to Unity Engineering.','Tell us about your process requirements and project timeline.','compact-intro')
     page('/contact/','Contact Us','Contact Unity Engineering in Ankleshwar, Gujarat for process equipment fabrication enquiries.',contact_intro+section('Ankleshwar, Gujarat','Contact the workshop.',contact_block(),'light',button('/quotation/','Start an equipment enquiry')))
     gallery_nav = '<nav class="shell gallery-nav" aria-label="Gallery categories">'+links([('#'+c[0],e(c[1])) for c in CATEGORIES],'')+'</nav>'
     galleries = []
@@ -381,8 +367,8 @@ def build_information():
             for p in PRODUCTS if p['cat']==i
         )
         galleries.append(f'<div id="{slug}">'+section('Equipment gallery',title,'<div class="image-grid gallery-grid">'+images+'</div>')+'</div>')
-    page('/gallery/','Equipment Gallery','Equipment images by product family from Unity Engineering.',intro('Gallery','Equipment in detail.','Browse concept renders by equipment family and open a product to see its sizing details.','compact-intro')+gallery_nav+''.join(galleries))
-    pdf_intro = intro('Product catalogue','Download the equipment catalogue.',f'A PDF guide to {len(PRODUCTS)} products, with sizing metrics and concept renders.','compact-intro')
+    page('/gallery/','Equipment Gallery','Equipment images by product family from Unity Engineering.',intro('Gallery','Equipment in detail.','Browse concept renders by equipment family and open a product to explore its design and applications.','compact-intro')+gallery_nav+''.join(galleries))
+    pdf_intro = intro('Product catalogue','Download the equipment catalogue.',f'A PDF guide with a full page and equipment illustration for each of our {len(PRODUCTS)} products.','compact-intro')
     pdf_actions = '<div class="shell actions catalogue-download">'+button('/assets/catalogue.pdf','Download equipment catalogue PDF')+button('/products/','Browse products online','outline')+'</div>'
     page('/catalogue/','Download Product Catalogue','Download the Unity Engineering process equipment catalogue PDF.',pdf_intro+pdf_actions+section('Equipment families','Browse the online catalogue.',category_cards(),'light'))
     fields = [
@@ -393,16 +379,15 @@ def build_information():
     inputs = [f'<label for="{key}">{label}<input id="{key}" name="{key}" type="{kind}" autocomplete="{auto}" maxlength="150"{" required" if required else ""}></label>' for key,label,kind,auto,required in fields]
     cats = ''.join(f'<option value="{i}">{e(c[1])}</option>' for i,c in enumerate(CATEGORIES))
     options = ''.join(
-        f'<option value="{p["slug"]}" data-category="{p["cat"]}" data-sizing="{e(json.dumps(enquiry_profile(p), ensure_ascii=False))}">{e(p["title"])}</option>'
+        f'<option value="{p["slug"]}" data-category="{p["cat"]}">{e(p["title"])}</option>'
         for p in PRODUCTS
     )
     enquiry = f'''<form id="enquiry" action="/contact/" class="enquiry">
 <fieldset><legend>Contact details</legend><div class="form-grid">{''.join(inputs[:4])}</div></fieldset>
-<fieldset><legend>Equipment and sizing</legend><div class="form-grid">
+<fieldset><legend>Equipment</legend><div class="form-grid">
 <label for="equipment-category">Equipment category<select id="equipment-category" name="category"><option value="">Select a category</option>{cats}</select></label>
 <label for="equipment-name">Equipment name<select id="equipment-name" name="equipment"><option value="">Select equipment</option>{options}</select></label>
-</div><div id="general-sizing"><label for="capacity">Required sizing <span>(optional)</span><input id="capacity" name="capacity" type="text" maxlength="150" placeholder="Enter the value and unit if known"></label></div>
-<p id="sizing-help" class="form-help" hidden></p><div class="form-grid" id="equipment-sizing"></div></fieldset>
+</div></fieldset>
 <fieldset><legend>Project requirements</legend><div class="form-grid">{''.join(inputs[4:])}
 <label class="wide" for="requirements">Process and project details<textarea id="requirements" name="requirements" rows="5" maxlength="1500" required></textarea></label></div></fieldset>
 <div class="actions"><button class="btn" type="submit" value="email" disabled>Open email draft</button><button class="btn outline" type="submit" value="whatsapp" disabled>Open WhatsApp draft</button></div><p role="status" id="form-status"></p>

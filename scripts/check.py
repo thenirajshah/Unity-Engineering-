@@ -7,7 +7,6 @@ import hashlib
 import json
 import subprocess
 import re
-from sizing import metrics, units_text, value_text
 
 out = Path('dist')
 products = json.loads(Path('src/products.json').read_text())
@@ -53,9 +52,12 @@ class Document(HTMLParser):
 
 assert len(products) == 23
 assert len(pages) == 44
+removed_copy = ('Sizing on request', 'Capacity &amp; sizing', 'Required sizing', 'Working volume in kL')
 for path in pages:
     document = Document()
-    document.feed(path.read_text())
+    content = path.read_text()
+    assert not any(copy in content for copy in removed_copy), path
+    document.feed(content)
     assert document.headings == 1, path
     assert document.title and document.title not in titles, path
     assert document.description and document.description not in descriptions, path
@@ -81,15 +83,8 @@ for p in products:
     content = (out/'products'/p['slug']/'index.html').read_text()
     assert f'/assets/{approved["asset"]}' in content
     assert approved['label'] in content and 'Image pending' not in content
-    assert 'Capacity &amp; sizing' in content
     assert 'Zoom equipment image' in content
     assert 'https://wa.me/919934969351?text=' in content
-    for metric, value in metrics(p):
-        assert escape(metric['label']) in content
-        expected = value_text(value) if value else units_text(metric)
-        assert escape(expected) in content
-        if value is None:
-            assert 'Sizing on request' in content
     for heading in ('Working principle','Industrial applications','Construction features','Material options','Technical specifications'):
         assert heading in content, (p['slug'],heading)
 for slug,*_ in cats:
@@ -108,27 +103,12 @@ pdf = out/'assets/catalogue.pdf'
 assert pdf.read_bytes().startswith(b'%PDF-')
 extracted = subprocess.check_output(['pdftotext', str(pdf), '-'], text=True)
 normalize = lambda value: re.sub(r'\s+', ' ', value)
-for p in products:
-    assert normalize(p['title']) in normalize(extracted), p['title']
-    for metric, value in metrics(p):
-        expected = value_text(value) if value else units_text(metric)
-        assert f'{metric["label"]} · {expected}' in normalize(extracted), p['slug']
-if all(not p.get('verified_sizing') for p in products):
-    assert extracted.count('Sizing on request') == len(products)
-fixture = {
-    'slug': 'test-column',
-    'sizing_profile': 'column',
-    'verified_sizing': {'feed-rate': {'value': 10, 'upper': 25, 'unit': 'kg/h', 'source': 'Test evidence', 'basis': 'Test feed'}},
-}
-assert value_text(next(metrics(fixture))[1]) == '10–25 kg/h'
-for field in ('basis', 'source'):
-    invalid = {**fixture['verified_sizing']['feed-rate'], field: ''}
-    try:
-        list(metrics({**fixture, 'verified_sizing': {'feed-rate': invalid}}))
-    except ValueError:
-        pass
-    else:
-        raise AssertionError(f'Accepted an unverified feed-rate record without {field}')
+pdf_pages = [normalize(page) for page in extracted.split('\f') if page.strip()]
+assert len(pdf_pages) == len(products) + 1
+for p, pdf_page in zip(sorted(products, key=lambda product: product['cat']), pdf_pages[1:]):
+    assert normalize(p['title']) in pdf_page, p['title']
+    assert p['approved_image']['label'] in pdf_page, p['slug']
+assert not re.search(r'\b(capacity|sizing)\b', extracted, re.IGNORECASE)
 industry_titles = [industry[1] for industry in json.loads(Path('src/industries.json').read_text())]
 for path in ('index.html','industries/index.html'):
     content = (out/path).read_text()

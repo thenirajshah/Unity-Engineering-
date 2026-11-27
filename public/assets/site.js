@@ -149,12 +149,8 @@ if (enquiry) {
   const category = enquiry.elements.category;
   const equipment = enquiry.elements.equipment;
   const status = document.querySelector('#form-status');
-  const generalSizing = document.querySelector('#general-sizing');
-  const sizingFields = document.querySelector('#equipment-sizing');
-  const sizingHelp = document.querySelector('#sizing-help');
   const named = new URLSearchParams(location.search).get('equipment');
   const selected = [...equipment.options].find((option) => option.value === named && named);
-  let activeSizing = null;
 
   function filterEquipment() {
     if (category.value && equipment.selectedOptions[0]?.dataset.category !== category.value) {
@@ -166,92 +162,30 @@ if (enquiry) {
     }
   }
 
-  function updateSizing() {
-    const nextSizing = equipment.selectedOptions[0]?.dataset.sizing || '';
-    if (activeSizing === nextSizing) return;
-    activeSizing = nextSizing;
-    sizingFields.replaceChildren();
-    generalSizing.hidden = Boolean(nextSizing);
-    enquiry.elements.capacity.disabled = Boolean(nextSizing);
-    sizingHelp.hidden = !nextSizing;
-    sizingHelp.textContent = '';
-    if (!nextSizing) return;
-
-    const profile = JSON.parse(nextSizing);
-    sizingHelp.textContent = profile.guidance;
-    for (const metric of profile.metrics) {
-      const field = document.createElement('div');
-      field.className = 'sizing-field';
-      field.dataset.metric = metric.label;
-
-      const amountLabel = document.createElement('label');
-      const amount = document.createElement('input');
-      amount.id = 'sizing-' + metric.key;
-      amount.type = 'number';
-      amount.step = 'any';
-      amount.min = '0';
-      amount.inputMode = 'decimal';
-      amount.setAttribute('aria-describedby', 'sizing-help');
-      amount.addEventListener('input', () => {
-        amount.setCustomValidity(amount.value && amount.valueAsNumber <= 0 ? 'Enter a value greater than zero.' : '');
-      });
-      const singleUnit = metric.units.length === 1 ? metric.units[0] : '';
-      amountLabel.append(metric.label + (singleUnit ? ' (' + singleUnit + ', optional)' : ' (optional)'), amount);
-
-      if (!singleUnit) {
-        const unitLabel = document.createElement('label');
-        const units = document.createElement('select');
-        units.setAttribute('aria-label', metric.label + ' unit');
-        for (const unit of metric.units) units.add(new Option(unit, unit));
-        unitLabel.append('Unit', units);
-        field.append(amountLabel, unitLabel);
-      } else {
-        const unit = document.createElement('span');
-        unit.className = 'sizing-unit';
-        unit.textContent = singleUnit;
-        unit.setAttribute('aria-hidden', 'true');
-        field.dataset.unit = singleUnit;
-        field.append(amountLabel, unit);
-      }
-      sizingFields.append(field);
-    }
-  }
-
   if (selected) {
     equipment.value = selected.value;
     category.value = selected.dataset.category;
   }
-  category.addEventListener('change', () => {
-    filterEquipment();
-    updateSizing();
-  });
+  category.addEventListener('change', filterEquipment);
   equipment.addEventListener('change', () => {
     const selected = equipment.selectedOptions[0];
     if (selected.value) category.value = selected.dataset.category;
     filterEquipment();
-    updateSizing();
   });
   filterEquipment();
-  updateSizing();
   enquiry.addEventListener('submit', (event) => {
     event.preventDefault();
     const fields = [
       ['name', 'Name'], ['company', 'Company'], ['email', 'Email'], ['phone', 'Mobile'],
-      ['category', 'Equipment category'], ['equipment', 'Equipment name'], ['capacity', 'Required sizing'],
+      ['category', 'Equipment category'], ['equipment', 'Equipment name'],
       ['material', 'Material'], ['pressure', 'Design pressure'], ['temperature', 'Design temperature'],
       ['requirements', 'Project requirements']
     ];
     const lines = ['Hello Unity Engineering,', '', 'I would like to request a quotation.', ''];
     for (const [field, label] of fields) {
       const input = enquiry.elements[field];
-      if (input.disabled) continue;
       const value = input.tagName === 'SELECT' && input.value ? input.selectedOptions[0].text : input.value.trim();
       if (value) lines.push(label + ': ' + value);
-    }
-    for (const field of sizingFields.children) {
-      const amount = field.querySelector('input').value;
-      const unit = field.querySelector('select')?.value || field.dataset.unit;
-      if (amount) lines.push(field.dataset.metric + ': ' + amount + ' ' + unit);
     }
     const body = encodeURIComponent(lines.join('\n'));
     if (event.submitter?.value === 'whatsapp') {
