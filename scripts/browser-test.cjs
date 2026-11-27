@@ -95,7 +95,7 @@ async function run() {
   await page.goto(origin + '/quotation/?equipment=limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-name').inputValue(),'limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-category').inputValue(),'0');
-  assert(await page.getByLabel('Working volume (L, optional)').isVisible());
+  assert(await page.getByLabel('Working volume (kL, optional)').isVisible());
   assert(!(await page.locator('#general-sizing').isVisible()));
   assert.equal(await page.locator('form').evaluate(form => form.checkValidity()), false);
   await page.locator('#equipment-category').selectOption('1');

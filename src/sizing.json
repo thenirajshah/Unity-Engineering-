@@ -1,7 +1,7 @@
 {
   "reactor": {
     "guidance": "Share the working batch volume, product and operating conditions.",
-    "metrics": [{"key": "working-volume", "label": "Working volume", "units": ["L"]}]
+    "metrics": [{"key": "working-volume", "label": "Working volume", "units": ["kL"]}]
   },
   "vessel": {
     "guidance": "Share the required nominal volume, service fluid and orientation.",
