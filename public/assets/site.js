@@ -62,8 +62,14 @@ if (grid) {
       const card = button.closest('.card');
       const source = card.querySelector('img');
       const image = dialog.querySelector('img');
-      image.src = source.src;
-      image.alt = source.alt;
+      image.hidden = !source;
+      dialog.querySelector('.image-pending').hidden = Boolean(source);
+      if (source) {
+        image.src = source.src;
+        image.alt = source.alt;
+      } else {
+        image.removeAttribute('src');
+      }
       dialog.querySelector('h2').textContent = button.dataset.title;
       dialog.querySelector('p').textContent = button.dataset.detail;
       dialog.querySelector('.detail-link').href = card.querySelector('.card-image').href;
@@ -156,7 +162,7 @@ let engine;
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 for (const viewer of document.querySelectorAll('[data-viewer]')) {
   const canvas = viewer.querySelector('canvas');
-  const fallback = viewer.querySelector('img');
+  const fallback = viewer.querySelector('.viewer-still');
   const launch = viewer.querySelector('.launch');
   const controls = viewer.querySelector('.viewer-controls');
   const status = viewer.querySelector('.viewer-status');
@@ -184,7 +190,7 @@ for (const viewer of document.querySelectorAll('[data-viewer]')) {
     } catch {
       canvas.hidden = true;
       launch.hidden = true;
-      status.textContent = 'Interactive 3D is unavailable. Showing the concept image.';
+      status.textContent = 'Interactive 3D is unavailable.';
     }
   });
   canvas.addEventListener('webglcontextlost', () => {
@@ -195,7 +201,7 @@ for (const viewer of document.querySelectorAll('[data-viewer]')) {
     controls.hidden = true;
     if (components) components.hidden = true;
     if (fallback) fallback.hidden = false;
-    status.textContent = 'Interactive 3D is unavailable. Showing the concept image.';
+    status.textContent = 'Interactive 3D is unavailable.';
   });
   components?.addEventListener('click', (event) => {
     const target = event.target.closest('[data-component]');

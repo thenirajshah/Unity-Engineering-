@@ -51,7 +51,11 @@ async function run() {
     for (const route of ['/', '/products/', '/quotation/', '/products/limpet-coil-reactors/']) {
       await page.goto(origin + route);
       assert(await page.locator('h1').isVisible(), route);
-      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `Overflow at ${width} on ${route}`);
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth
+        ? [...document.querySelectorAll('body *')].filter(element => element.getBoundingClientRect().right > innerWidth + 1)
+          .slice(0, 8).map(element => element.outerHTML.slice(0, 85))
+        : []);
+      assert.deepEqual(overflow, [], `Overflow at ${width} on ${route}`);
     }
     if ([390,768,1440].includes(width)) {
       await page.goto(origin + '/');
@@ -76,11 +80,12 @@ async function run() {
   assert.equal(await page.locator('#count').textContent(),'1 equipment entry');
   await page.locator('.card:visible .preview').click();
   assert(await page.getByRole('dialog').isVisible());
+  assert(await page.getByRole('dialog').getByRole('img', {name: /Limpet Coil Reactors/}).isVisible());
   await page.keyboard.press('Escape');
   await page.locator('#category').selectOption('4');
   assert(await page.locator('#no-results').isVisible());
   await page.locator('#search').fill('');
-  assert.equal(await page.locator('#count').textContent(),'12 equipment entries');
+  assert.equal(await page.locator('#count').textContent(),'7 equipment entries');
   await page.goto(origin + '/quotation/?equipment=limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-name').inputValue(),'limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-category').inputValue(),'0');
@@ -110,7 +115,7 @@ async function run() {
   assert.equal(await page.locator('a[href^="tel:"]').first().getAttribute('href'),'tel:+919934969351');
   assert.equal(await page.locator('a[href^="mailto:"]').first().getAttribute('href'),'mailto:Nirajkumarshah17@gmail.com');
 
-  const viewers = ['reactor-limpet','exchanger','pressure','anfd','ribbon','rmg'];
+  const viewers = ['reactor-limpet','exchanger','pressure','anfd','ribbon'];
   for (const p of products) {
     const response = await page.goto(origin + '/products/' + p.slug + '/');
     assert.equal(response.status(),200);
@@ -141,11 +146,15 @@ async function run() {
   await page.route('**/assets/models/*.glb', route => route.abort());
   await page.goto(origin + '/products/limpet-coil-reactors/');
   await page.getByRole('button',{name:'Launch interactive 3D'}).click();
-  await page.locator('.viewer-status').getByText('Interactive 3D is unavailable. Showing the concept image.').waitFor();
+  await page.locator('.viewer-status').getByText('Interactive 3D is unavailable.').waitFor();
   assert(await page.locator('.viewer-still').isVisible());
   for (const [slug] of require('../src/categories.json')) {
     assert.equal((await page.goto(origin + '/products/categories/' + slug + '/')).status(),200);
   }
+  await page.goto(origin + '/industries/');
+  assert.equal(await page.locator('.industry-grid article').count(), 5);
+  await page.goto(origin + '/products/categories/heat-exchangers-columns/');
+  assert(await page.locator('main').getByRole('link',{name:'Columns',exact:true}).isVisible());
   assert.equal((await page.goto(origin + '/missing')).status(),404);
   await page.goto(origin + '/catalogue/');
   const pendingDownload = page.waitForEvent('download');
@@ -169,7 +178,7 @@ async function run() {
     viewport: innerWidth
   }));
   fs.writeFileSync('test-results/browser-metrics.json',JSON.stringify(timing,null,2));
-  console.log('Chromium passed responsive layout, navigation, products, categories, catalogue search, quotation draft, six GLBs, component views, cutaway, exploded assembly, fallback, 404 and PDF checks.');
+  console.log('Chromium passed responsive layout, navigation, products, categories, catalogue search, quotation draft, five GLBs, component views, cutaway, exploded assembly, fallback, 404 and PDF checks.');
   await browser.close();
 }
 run().catch((error) => { console.error(error); process.exit(1); });

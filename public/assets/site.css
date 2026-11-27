@@ -76,7 +76,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 2rem); }
 .hero-visual { align-self: stretch; position: relative; }
 .hero-caption { position: absolute; left: 0; bottom: 1.45rem; border-left: 2px solid var(--orange); padding-left: .7rem; font: 600 .8rem/1.5 var(--mono); text-transform: uppercase; }
 .hero-caption small { display: block; color: var(--muted); text-transform: none; }
-.statbar { display: grid; grid-template-columns: repeat(4,1fr); overflow: hidden; border-inline: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.statbar { display: grid; grid-template-columns: repeat(3,1fr); overflow: hidden; border-inline: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .statbar > div { display: flex; min-height: 113px; justify-content: center; flex-direction: column; padding: .85rem clamp(.85rem,3vw,2.5rem); border-right: 1px solid var(--line); }
 .statbar > div:last-child { border-right: 0; }
 .statbar b { color: var(--accent); font: 650 clamp(1.6rem, 4vw, 3rem)/1.05 var(--mono); letter-spacing: -.06em; }
@@ -257,3 +257,16 @@ dialog h2 { font-size: 2rem; }
   .product-gallery.with-detail { grid-template-columns: 1fr 1fr 1fr; }
   .product-gallery.with-detail img { aspect-ratio: 640 / 540; object-fit: cover; }
 }
+
+.image-pending { display: grid; width: 100%; min-width: 0; place-items: center; min-height: 8rem; aspect-ratio: 640 / 410; background: #181d22; color: #c3cbd2; font-size: .9rem; }
+.viewer .image-pending { width: 100%; height: 100%; min-height: 0; }
+.industry-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%, 14rem),1fr)); gap: 1rem; }
+.industry-grid article { min-width: 0; overflow-wrap: anywhere; padding: 1.25rem; border: 1px solid var(--line); }
+.industry-grid article > span { display: block; margin-bottom: .5rem; color: var(--accent); font-size: 1.5rem; }
+.industry-grid h3 { overflow-wrap: anywhere; }
+.industry-links { display: flex; flex-wrap: wrap; gap: .35rem 1rem; }
+.industries-page { margin-bottom: 4rem; }
+@media (max-width: 700px) {
+  .statbar .stat-location { grid-column: 1 / -1; }
+}
+img[src^="/assets/equipment/"] { object-fit: contain; background: #1d2125; }

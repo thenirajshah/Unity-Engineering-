@@ -1,15 +1,5 @@
 [
   {
-    "title": "Chemical & Pharmaceutical Reactors",
-    "kind": "reactor",
-    "desc": "Equipment for controlled chemical and pharmaceutical reaction processes.",
-    "cat": 0,
-    "slug": "chemical-pharmaceutical-reactors",
-    "principle": "An agitator circulates the charge while heating or cooling may be applied through an external circuit.",
-    "application": "Batch reaction and formulation",
-    "features": "Dished vessel, shaft seal, process nozzles and drain"
-  },
-  {
     "title": "GMP / Semi-GMP Reactors",
     "kind": "reactor-gmp",
     "desc": "Process reactors designed around hygienic construction requirements.",
@@ -17,7 +7,14 @@
     "slug": "gmp-semi-gmp-reactors",
     "principle": "Mixing and temperature control are designed around the batch and the required cleaning strategy.",
     "application": "Pharmaceutical intermediates and formulated liquids",
-    "features": "Drainable geometry, cleaning connections and access points as specified"
+    "features": "Drainable geometry, cleaning connections and access points as specified",
+    "approved_image": {
+      "asset": "equipment/gmp-semi-gmp-reactors.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 440,
+      "reference": "01A"
+    }
   },
   {
     "title": "Limpet Coil Reactors",
@@ -28,37 +25,30 @@
     "principle": "A thermal fluid circulates through a half-pipe coil welded to the shell, transferring heat through the vessel wall.",
     "application": "Batch heating and cooling",
     "features": "Half-pipe coil, thermal-fluid connections and agitated vessel",
-    "detail": "Half-pipe coil and shell welds"
+    "approved_image": {
+      "asset": "equipment/limpet-coil-reactors.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 440,
+      "reference": "02A"
+    }
   },
   {
-    "title": "Jacketed / Double Jacketed Reactors",
-    "kind": "reactor-jacket",
-    "desc": "Jacketed reaction equipment for heating and cooling applications.",
+    "title": "Autoclave Reactors",
+    "slug": "autoclave-reactors",
+    "desc": "Closed reactors for specified batch duties under pressure.",
+    "principle": "An enclosed chamber contains the batch during a controlled reaction.",
+    "application": "Batch reaction and process development.",
+    "features": "Pressure chamber, closure, process nozzles and service connections",
+    "kind": "autoclave",
     "cat": 0,
-    "slug": "jacketed-double-jacketed-reactors",
-    "principle": "Heat transfer fluid circulates in the annular jacket around the process shell.",
-    "application": "Temperature-controlled reaction, dissolution and mixing",
-    "features": "Inner shell, external jacket, service nozzles"
-  },
-  {
-    "title": "Stainless Steel Reactors",
-    "kind": "reactor-ss",
-    "desc": "Stainless steel reaction equipment for compatible process media.",
-    "cat": 0,
-    "slug": "ss-reactors",
-    "principle": "Agitation and service connections can be arranged to support the reaction and product transfer.",
-    "application": "Batch processing of media compatible with the selected stainless grade",
-    "features": "Dished head, process connections and optional thermal circuit"
-  },
-  {
-    "title": "Polyol Reactors",
-    "kind": "reactor-polyol",
-    "desc": "Reaction equipment for polyol processing and associated thermal duties.",
-    "cat": 0,
-    "slug": "polyol-reactors",
-    "principle": "The charge is mixed while heat input and removal follow the process formulation.",
-    "application": "Polyol batch processing",
-    "features": "Agitator, feed connections and thermal service circuit"
+    "approved_image": {
+      "asset": "equipment/autoclave-reactors.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 440,
+      "reference": "03A"
+    }
   },
   {
     "title": "Shell & Tube Heat Exchanger",
@@ -69,27 +59,30 @@
     "principle": "Two fluids exchange heat through tube walls while flowing through separate shell-side and tube-side circuits.",
     "application": "Process cooling, heating and heat recovery",
     "features": "Shell, tube bundle, tubesheets, channel heads and baffles",
-    "detail": "Tubesheet and heat transfer tubes"
+    "approved_image": {
+      "asset": "equipment/shell-tube-heat-exchanger.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 440,
+      "reference": "04A"
+    }
   },
   {
-    "title": "Falling Film Heat Exchanger",
-    "kind": "falling",
-    "desc": "Heat transfer using a liquid film flowing along a surface.",
+    "title": "Box Type Heat Exchanger",
+    "slug": "box-type-heat-exchanger",
+    "desc": "Compact box-format equipment for indirect heat transfer.",
+    "principle": "Separate flow paths exchange heat through metal surfaces.",
+    "application": "Process heating or cooling where a box-format assembly suits the layout.",
+    "features": "Box-shaped casing, heat-transfer surfaces and process connections",
+    "kind": "box-exchanger",
     "cat": 1,
-    "slug": "falling-film-heat-exchanger",
-    "principle": "A distributor spreads liquid into a thin film over heated or cooled surfaces.",
-    "application": "Heat-sensitive liquid processing and evaporation duties",
-    "features": "Liquid distributor, heat-transfer surface and collection zone"
-  },
-  {
-    "title": "Water / Industrial Heat Exchanger",
-    "kind": "water-exchanger",
-    "desc": "Heat exchange equipment for utility and industrial process duties.",
-    "cat": 1,
-    "slug": "water-industrial-heat-exchanger",
-    "principle": "Process and utility fluids flow through separate circuits to transfer heat across a metal wall.",
-    "application": "Cooling water loops and process temperature control",
-    "features": "Separated circuits, service connections and access for maintenance"
+    "approved_image": {
+      "asset": "equipment/box-type-heat-exchanger.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 439,
+      "reference": "05A"
+    }
   },
   {
     "title": "Reboiler",
@@ -99,364 +92,302 @@
     "slug": "reboiler",
     "principle": "Heat supplied to column bottoms produces vapor that returns to the separation column.",
     "application": "Distillation and solvent recovery",
-    "features": "Vapor return, liquid inlet and heating service connections"
+    "features": "Vapor return, liquid inlet and heating service connections",
+    "approved_image": {
+      "asset": "equipment/reboiler.webp",
+      "label": "Photorealistic concept render",
+      "width": 1024,
+      "height": 512,
+      "reference": "06A"
+    }
   },
   {
-    "title": "Condenser",
-    "kind": "condenser",
-    "desc": "Equipment for condensing process vapors by removing heat.",
-    "cat": 1,
-    "slug": "condenser",
-    "principle": "Cooling removes sensible and latent heat to convert vapor into liquid.",
-    "application": "Distillation overheads and vapor recovery",
-    "features": "Cooling circuit, vapor inlet and condensate outlet"
-  },
-  {
-    "title": "Distillation / Process Column",
+    "title": "Distillation Columns",
     "kind": "column",
     "desc": "Vertical process equipment for separation and mass transfer.",
-    "cat": 1,
+    "cat": 2,
     "slug": "distillation-process-column",
     "principle": "Vapor and liquid contact across trays or packing to transfer components between phases.",
     "application": "Fractionation and solvent recovery",
-    "features": "Column shell, internals supports and process nozzles"
+    "features": "Column shell, internals supports and process nozzles",
+    "approved_image": {
+      "asset": "equipment/distillation-process-column.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 439,
+      "reference": "07A"
+    }
   },
   {
-    "title": "Industrial / High Pressure Vessel",
+    "title": "High Pressure Vessel",
     "kind": "pressure",
     "desc": "Fabricated containment equipment for specified industrial pressure duties.",
-    "cat": 2,
+    "cat": 3,
     "slug": "industrial-high-pressure-vessel",
     "principle": "The enclosed shell and heads contain process media at the design conditions specified for the duty.",
     "application": "Gas or liquid containment under specified conditions",
     "features": "Shell, dished ends, support and connections",
-    "detail": "Bolted flange and dished head"
-  },
-  {
-    "title": "Chemical Reaction Vessel",
-    "kind": "reaction",
-    "desc": "Vessels for chemical processing and reaction operations.",
-    "cat": 2,
-    "slug": "chemical-reaction-vessel",
-    "principle": "Reactants are charged into a vessel for controlled contact, with mixing where specified.",
-    "application": "Chemical batch synthesis and intermediate processing",
-    "features": "Process inlet, outlet and optional agitator mount"
+    "approved_image": {
+      "asset": "equipment/industrial-high-pressure-vessel.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 439,
+      "reference": "08A"
+    }
   },
   {
     "title": "Stainless Steel / Mild Steel / Carbon Steel Storage Tank",
     "kind": "tank-storage",
     "desc": "Storage tanks in specified stainless, mild or carbon steel construction.",
-    "cat": 2,
+    "cat": 3,
     "slug": "ss-ms-cs-storage-tank",
     "principle": "A containment shell holds liquid between upstream and downstream operations.",
     "application": "Bulk liquid storage and process buffering",
-    "features": "Tank shell, vent connections, drain and access provisions"
-  },
-  {
-    "title": "Chemical / Industrial Storage Tank",
-    "kind": "tank-chemical",
-    "desc": "Storage equipment for compatible chemical and industrial media.",
-    "cat": 2,
-    "slug": "chemical-industrial-storage-tank",
-    "principle": "Media are received and held until transfer, with venting and materials selected for the stored chemical.",
-    "application": "Chemical feedstock storage and intermediate holding",
-    "features": "Fill and discharge connections, vent and access opening"
-  },
-  {
-    "title": "Milk / Water / Oil Storage Tank",
-    "kind": "oil-tank",
-    "desc": "Storage equipment configured for the intended liquid and service conditions.",
-    "cat": 2,
-    "slug": "milk-water-oil-storage-tank",
-    "principle": "Liquid is held for transfer, with cleaning and temperature provisions chosen for the service.",
-    "application": "Dairy liquids, industrial water and compatible oils",
-    "features": "Drain connection, access and optional insulation"
+    "features": "Tank shell, vent connections, drain and access provisions",
+    "approved_image": {
+      "asset": "equipment/ss-ms-cs-storage-tank.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 440,
+      "reference": "09A"
+    }
   },
   {
     "title": "Vertical / Horizontal Storage Tank",
     "kind": "horizontal-tank",
     "desc": "Storage tanks configured to suit available space and process requirements.",
-    "cat": 2,
+    "cat": 3,
     "slug": "vertical-horizontal-storage-tank",
     "principle": "A vertical or horizontal shell stores liquid according to footprint, headroom and access constraints.",
     "application": "Utility and process liquid storage",
-    "features": "Legs, skirt or saddles appropriate to the selected orientation"
+    "features": "Legs, skirt or saddles appropriate to the selected orientation",
+    "approved_image": {
+      "asset": "equipment/vertical-horizontal-storage-tank.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 440,
+      "reference": "10A"
+    }
+  },
+  {
+    "title": "Vertical / Horizontal Receivers",
+    "slug": "vertical-horizontal-receivers",
+    "desc": "Receiver vessels arranged vertically or horizontally to fit the installation.",
+    "principle": "The vessel provides buffer volume between upstream and downstream services.",
+    "application": "Process buffer storage and compressed-gas service where specified.",
+    "features": "Vessel shell, nozzles, access and mounting provisions",
+    "kind": "vertical-horizontal-receivers",
+    "cat": 3,
+    "approved_image": {
+      "asset": "equipment/vertical-horizontal-receivers.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 440,
+      "reference": "11A"
+    }
   },
   {
     "title": "Underground Storage Tank",
     "kind": "underground",
     "desc": "Storage tank construction for specified underground installation conditions.",
-    "cat": 2,
+    "cat": 3,
     "slug": "underground-storage-tank",
     "principle": "A below-grade vessel holds liquid with transfer and monitoring typically accessible at grade.",
     "application": "Below-grade utility or process liquid storage",
-    "features": "Access risers, vent connections and installation-specific protection"
+    "features": "Access risers, vent connections and installation-specific protection",
+    "approved_image": {
+      "asset": "equipment/underground-storage-tank.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 440,
+      "reference": "12A"
+    }
   },
   {
-    "title": "Air / Nitrogen Receiver Tank",
-    "kind": "receiver",
-    "desc": "Receiver vessels for compressed air or nitrogen systems.",
-    "cat": 2,
-    "slug": "air-nitrogen-receiver-tank",
-    "principle": "A receiver buffers compressed gas and helps manage fluctuations in demand.",
-    "application": "Compressed air and nitrogen distribution",
-    "features": "Gas inlet and outlet, drain and protection connections"
-  },
-  {
-    "title": "GMP / Insulated Tank",
+    "title": "Insulated Storage Tank",
     "kind": "tank-gmp",
     "desc": "Storage vessels with hygienic or thermal insulation requirements as specified.",
-    "cat": 2,
+    "cat": 3,
     "slug": "gmp-insulated-tank",
     "principle": "Insulation limits heat exchange with the surroundings while the storage shell contains the product.",
     "application": "Temperature-sensitive process and hygienic storage duties",
-    "features": "Insulated shell, product connections and access"
-  },
-  {
-    "title": "Mixing & Storage Vessel",
-    "kind": "mixing",
-    "desc": "Vessels combining storage and mixing operations.",
-    "cat": 2,
-    "slug": "mixing-storage-vessel",
-    "principle": "An agitator circulates the contents during blending or holding.",
-    "application": "Batch makeup and intermediate storage",
-    "features": "Agitator mounting, vessel and transfer connections"
+    "features": "Insulated shell, product connections and access",
+    "approved_image": {
+      "asset": "equipment/gmp-insulated-tank.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 439,
+      "reference": "13A"
+    }
   },
   {
     "title": "Rotocone Vacuum Dryer (RCVD)",
     "kind": "rcvd",
     "desc": "Rotating conical vacuum drying equipment for suitable solid products.",
-    "cat": 3,
+    "cat": 4,
     "slug": "rotocone-vacuum-dryer-rcvd",
     "principle": "A rotating double-cone vessel tumbles solids under vacuum while heat reaches the product through the wall.",
     "application": "Vacuum drying of suitable wet solids",
-    "features": "Double-cone body, rotary coupling and vacuum connection"
+    "features": "Double-cone body, rotary coupling and vacuum connection",
+    "approved_image": {
+      "asset": "equipment/rotocone-vacuum-dryer-rcvd.webp",
+      "label": "Photorealistic concept render",
+      "width": 1024,
+      "height": 683,
+      "reference": "14A"
+    }
   },
   {
     "title": "Rotary Vacuum Dryer (RVD)",
     "kind": "rvd",
     "desc": "Rotary equipment for drying under vacuum.",
-    "cat": 3,
+    "cat": 4,
     "slug": "rotary-vacuum-dryer-rvd",
     "principle": "A rotating or internally agitated chamber renews solids exposure to heated surfaces under vacuum.",
     "application": "Drying powders and granules with limited thermal exposure",
-    "features": "Drying chamber, drive, heating and vacuum connections"
+    "features": "Drying chamber, drive, heating and vacuum connections",
+    "approved_image": {
+      "asset": "equipment/rotary-vacuum-dryer-rvd.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 439,
+      "reference": "15A"
+    }
   },
   {
     "title": "Fluid Bed Dryer (FBD)",
     "kind": "fbd",
     "desc": "Drying equipment using a fluidized bed of particles.",
-    "cat": 3,
+    "cat": 4,
     "slug": "fluid-bed-dryer-fbd",
     "principle": "Air passes through a distributor and suspends particles, carrying away moisture.",
     "application": "Drying granules and powders suited to fluidization",
     "features": "Air distributor, product bowl and exhaust filtration",
-    "detail": "Exhaust filter elements"
-  },
-  {
-    "title": "Fluid Bed Processor (FBP)",
-    "kind": "fbp",
-    "desc": "Fluid-bed equipment for specified particle processing applications.",
-    "cat": 3,
-    "slug": "fluid-bed-processor-fbp",
-    "principle": "Fluidizing air suspends particles while an application-specific spray system can introduce liquid.",
-    "application": "Fluid-bed drying, coating or granulation duties",
-    "features": "Product bowl, air distributor, filtration and optional spray assembly"
+    "approved_image": {
+      "asset": "equipment/fluid-bed-dryer-fbd.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 439,
+      "reference": "16A"
+    }
   },
   {
     "title": "Vacuum Tray Dryer (VTD)",
     "kind": "vtd",
     "desc": "Tray-based drying equipment operating under specified vacuum conditions.",
-    "cat": 3,
+    "cat": 4,
     "slug": "vacuum-tray-dryer-vtd",
     "principle": "Product rests on trays in an evacuated heated chamber, reducing the temperature needed for evaporation.",
     "application": "Static batch drying of heat-sensitive solids",
     "features": "Vacuum chamber, shelves, trays and sealed door",
-    "detail": "Tray stack and supports"
+    "approved_image": {
+      "asset": "equipment/vacuum-tray-dryer-vtd.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 440,
+      "reference": "17A"
+    }
   },
   {
-    "title": "Hot Air Tray Dryer",
+    "title": "Air Tray Dryer",
     "kind": "hot-air",
     "desc": "Tray drying equipment using heated air circulation.",
-    "cat": 3,
+    "cat": 4,
     "slug": "hot-air-tray-dryer",
     "principle": "Heated air circulates across trays and carries away evaporated moisture.",
     "application": "Batch drying of suitable powders, granules or solids",
-    "features": "Insulated chamber, tray racks and recirculating air path"
+    "features": "Insulated chamber, tray racks and recirculating air path",
+    "approved_image": {
+      "asset": "equipment/hot-air-tray-dryer.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 440,
+      "reference": "18A"
+    }
   },
   {
     "title": "Agitated Nutsche Filter Dryer (ANFD)",
     "kind": "anfd",
     "desc": "Equipment integrating solid-liquid filtration, washing and drying duties.",
-    "cat": 3,
+    "cat": 4,
     "slug": "agitated-nutsche-filter-dryer-anfd",
     "principle": "Pressure differential draws liquid through a filter plate. An agitator can redistribute cake for washing and drying.",
     "application": "Solid–liquid separation, cake washing and vacuum drying",
     "features": "Filter plate, sealed vessel, lift drive and cake discharge",
-    "detail": "Perforated filter plate"
+    "approved_image": {
+      "asset": "equipment/agitated-nutsche-filter-dryer-anfd.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 440,
+      "reference": "19A"
+    }
+  },
+  {
+    "title": "Nutsche Filter (NF)",
+    "slug": "nutsche-filter-nf",
+    "desc": "Batch solid-liquid separation through a supported filter medium.",
+    "principle": "Pressure differential drives liquid through the filter medium while solids remain as cake.",
+    "application": "Separation and washing of solids in chemical or pharmaceutical processing.",
+    "features": "Filter vessel, supported filter medium and filtrate outlet",
+    "kind": "nutsche-filter",
+    "cat": 4,
+    "approved_image": {
+      "asset": "equipment/nutsche-filter-nf.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 440,
+      "reference": "20A"
+    }
   },
   {
     "title": "Ribbon Blender",
     "kind": "ribbon",
     "desc": "Horizontal blending equipment for compatible powders and bulk solids.",
-    "cat": 4,
+    "cat": 5,
     "slug": "ribbon-blender",
     "principle": "Inner and outer helical ribbons move powder in opposing axial directions within a trough.",
     "application": "Dry powder blending and compatible low-liquid formulations",
     "features": "Trough, ribbon shaft, drive and discharge gate",
-    "detail": "Mixing shaft and helical ribbons"
+    "approved_image": {
+      "asset": "equipment/ribbon-blender.webp",
+      "label": "Photorealistic concept render",
+      "width": 440,
+      "height": 439,
+      "reference": "21A"
+    }
   },
   {
     "title": "Octagonal Blender",
     "kind": "octagonal",
     "desc": "Rotating octagonal vessel for bulk material blending.",
-    "cat": 4,
+    "cat": 5,
     "slug": "octagonal-blender",
     "principle": "The rotating polygonal chamber lifts and tumbles particles to redistribute them.",
     "application": "Gentle blending of free-flowing powders or granules",
-    "features": "Faceted chamber, trunnion mounts and discharge"
+    "features": "Faceted chamber, trunnion mounts and discharge",
+    "approved_image": {
+      "asset": "equipment/octagonal-blender.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 439,
+      "reference": "22A"
+    }
   },
   {
     "title": "Double Cone Blender",
     "kind": "double-cone",
     "desc": "Rotating double-cone equipment for blending powders and granules.",
-    "cat": 4,
+    "cat": 5,
     "slug": "double-cone-blender",
     "principle": "Two opposed cones continuously divide and recombine the powder bed as the vessel rotates.",
     "application": "Dry blending of flowable materials",
-    "features": "Double-conical body, supports and charge/discharge ports"
-  },
-  {
-    "title": "V-Type Blender",
-    "kind": "v-blender",
-    "desc": "V-shaped tumbling equipment for suitable dry blending duties.",
-    "cat": 4,
-    "slug": "v-type-blender",
-    "principle": "Rotation repeatedly splits and recombines material across two angled vessel arms.",
-    "application": "Free-flowing dry powders and granules",
-    "features": "V-shell, access covers and discharge valve"
-  },
-  {
-    "title": "Egg Shape Blender",
-    "kind": "egg",
-    "desc": "Rotating egg-shaped vessel for specified blending applications.",
-    "cat": 4,
-    "slug": "egg-shape-blender",
-    "principle": "A rotating curved chamber redistributes material through repeated tumbling.",
-    "application": "Gentle blending duties suited to tumbling",
-    "features": "Curved chamber, supports, drive and discharge"
-  },
-  {
-    "title": "BIN Blender",
-    "kind": "bin",
-    "desc": "Bin-based blending equipment for material handling and mixing.",
-    "cat": 4,
-    "slug": "bin-blender",
-    "principle": "A docking mechanism secures a detachable bin for rotation and subsequent transfer.",
-    "application": "Contained batch blending and intermediate transfer",
-    "features": "Bin, locking cradle and drive"
-  },
-  {
-    "title": "Cage Blender",
-    "kind": "cage",
-    "desc": "Cage-supported tumbling equipment for compatible blending duties.",
-    "cat": 4,
-    "slug": "cage-blender",
-    "principle": "A rotating cage holds a compatible container while its contents tumble.",
-    "application": "Container-based blending of flowable solids",
-    "features": "Cage, restraint hardware and drive"
-  },
-  {
-    "title": "Contra Rotary Mixer",
-    "kind": "contra",
-    "desc": "Mixing equipment using counter-rotating mixing elements as specified.",
-    "cat": 4,
-    "slug": "contra-rotary-mixer",
-    "principle": "Counter-rotating mixing elements produce relative motion through the batch.",
-    "application": "Viscous formulations and emulsification support",
-    "features": "Concentric shafts, opposing drives and vessel"
-  },
-  {
-    "title": "Planetary Mixer",
-    "kind": "planetary",
-    "desc": "Mixing equipment for specified viscous or other process materials.",
-    "cat": 4,
-    "slug": "planetary-mixer",
-    "principle": "Mixing tools rotate on their own axes while orbiting the chamber to sweep the batch.",
-    "application": "Pastes and viscous batch formulations",
-    "features": "Planetary drive, tool heads and bowl"
-  },
-  {
-    "title": "Magnetic Mixer",
-    "kind": "magnetic",
-    "desc": "Mixing equipment using a specified magnetic drive arrangement.",
-    "cat": 4,
-    "slug": "magnetic-mixer",
-    "principle": "A magnetic coupling transmits torque through a barrier to an impeller.",
-    "application": "Sealed liquid mixing duties",
-    "features": "Drive coupling, containment barrier and impeller"
-  },
-  {
-    "title": "Agitator",
-    "kind": "agitator",
-    "desc": "Shaft and impeller assemblies for specified mixing duties.",
-    "cat": 4,
-    "slug": "agitator",
-    "principle": "A driven shaft turns one or more impellers to circulate the process fluid.",
-    "application": "Suspension, blending and heat-transfer support",
-    "features": "Shaft, impeller, mounting and sealing arrangement"
-  },
-  {
-    "title": "Homogenizer",
-    "kind": "homogenizer",
-    "desc": "Equipment for specified dispersion and homogenization applications.",
-    "cat": 4,
-    "slug": "homogenizer",
-    "principle": "A rotor-stator or other application-specific high-shear assembly disperses components into a more uniform mixture.",
-    "application": "Emulsions and dispersions",
-    "features": "Drive and high-shear working head",
-    "detail": "Rotor-stator dispersing head"
-  },
-  {
-    "title": "Rapid Mixer Granulator (RMG)",
-    "kind": "rmg",
-    "desc": "Equipment for mixing and wet granulation of suitable materials.",
-    "cat": 5,
-    "slug": "rapid-mixer-granulator-rmg",
-    "principle": "An impeller blends solids with liquid binder while a chopper helps break up agglomerates.",
-    "application": "Wet granulation for pharmaceutical and related formulations",
-    "features": "Bowl, impeller, chopper and discharge",
-    "detail": "Bottom impeller and bowl"
-  },
-  {
-    "title": "Starch Paste Kettle",
-    "kind": "kettle",
-    "desc": "Kettle equipment for preparing starch paste and similar process mixtures.",
-    "cat": 5,
-    "slug": "starch-paste-kettle",
-    "principle": "Heat and agitation disperse starch and develop a paste at the process conditions.",
-    "application": "Binder preparation and similar batch cooking duties",
-    "features": "Kettle, agitator and thermal service connections"
-  },
-  {
-    "title": "Multi Mill",
-    "kind": "multimill",
-    "desc": "Milling equipment for specified particle size reduction.",
-    "cat": 5,
-    "slug": "multi-mill",
-    "principle": "A rotor moves feed against a screen to reduce particles to a suitable size range.",
-    "application": "Granule sizing and process particle-size reduction",
-    "features": "Feed hopper, rotor, screen and discharge"
-  },
-  {
-    "title": "Vibro Sifter",
-    "kind": "sifter",
-    "desc": "Vibratory screening equipment for separating particles by size.",
-    "cat": 5,
-    "slug": "vibro-sifter",
-    "principle": "A vibratory drive moves material across a screen so smaller particles pass through the mesh.",
-    "application": "Powder screening and size classification",
-    "features": "Screen deck, vibration drive and separate outlets",
-    "detail": "Vibrating screen deck and spring mounts"
+    "features": "Double-conical body, supports and charge/discharge ports",
+    "approved_image": {
+      "asset": "equipment/double-cone-blender.webp",
+      "label": "Photorealistic concept render",
+      "width": 439,
+      "height": 439,
+      "reference": "23A"
+    }
   }
 ]

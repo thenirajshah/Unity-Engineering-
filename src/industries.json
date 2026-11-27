@@ -1,0 +1,48 @@
+[
+  [
+    "✚",
+    "Pharmaceutical & API",
+    "Reactors and filtration equipment for process development and batch production.",
+    [
+      "reactors",
+      "dryers-filtration"
+    ]
+  ],
+  [
+    "⌁",
+    "Agrochemical/Pesticides",
+    "Reaction and containment equipment selected for the process duty.",
+    [
+      "reactors",
+      "vessels-tanks"
+    ]
+  ],
+  [
+    "◇",
+    "Specialty Chemicals",
+    "Equipment for batch reaction, indirect heat transfer and separation.",
+    [
+      "reactors",
+      "heat-exchangers",
+      "columns"
+    ]
+  ],
+  [
+    "◉",
+    "Fine Chemicals",
+    "Mixing, separation and drying equipment for application-specific processes.",
+    [
+      "mixers-blenders",
+      "dryers-filtration"
+    ]
+  ],
+  [
+    "⚗",
+    "Process R&D",
+    "Equipment configurations for pilot trials and process development.",
+    [
+      "reactors",
+      "columns"
+    ]
+  ]
+]

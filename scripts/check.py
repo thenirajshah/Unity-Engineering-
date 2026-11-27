@@ -1,7 +1,9 @@
 """Check the generated site without a browser or external services."""
+from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
+import hashlib
 import json
 import subprocess
 import re
@@ -46,7 +48,8 @@ class Document(HTMLParser):
         if self.in_title:
             self.title += data
 
-assert len(pages) == 64
+assert len(products) == 23
+assert len(pages) == 43
 for path in pages:
     document = Document()
     document.feed(path.read_text())
@@ -65,9 +68,17 @@ for path in pages:
         file = out/relative
         assert file.is_file() or (file/'index.html').is_file(), (path,link)
 
+image_hashes = set()
 for p in products:
+    approved = p['approved_image']
+    asset = out/'assets'/approved['asset']
+    digest = hashlib.sha256(asset.read_bytes()).hexdigest()
+    assert digest not in image_hashes, p['slug']
+    image_hashes.add(digest)
     content = (out/'products'/p['slug']/'index.html').read_text()
-    for heading in ('Working principle','Industrial applications','Construction features','Material options','Technical specifications','Related equipment','Alternate view'):
+    assert f'/assets/{approved["asset"]}' in content
+    assert approved['label'] in content and 'Image pending' not in content
+    for heading in ('Working principle','Industrial applications','Construction features','Material options','Technical specifications'):
         assert heading in content, (p['slug'],heading)
 for slug,*_ in cats:
     assert (out/'products/categories'/slug/'index.html').is_file(), slug
@@ -87,4 +98,19 @@ extracted = subprocess.check_output(['pdftotext', str(pdf), '-'], text=True)
 normalize = lambda value: re.sub(r'\s+', ' ', value)
 for p in products:
     assert normalize(p['title']) in normalize(extracted), p['title']
-print('Verified 64 page documents, internal references, unique titles/descriptions, all alternate views, GLB integrity and all 45 PDF entries.')
+industry_titles = [industry[1] for industry in json.loads(Path('src/industries.json').read_text())]
+for path in ('index.html','industries/index.html'):
+    content = (out/path).read_text()
+    assert 'Solutions for Critical Manufacturing Environments' in content
+    for title in industry_titles:
+        assert escape(title) in content
+assert next(p for p in products if p['slug'] == 'autoclave-reactors')['cat'] == 0
+assert sum(p['cat'] == 2 for p in products) == 1
+redirects = json.loads(Path('src/redirects.json').read_text())
+for old,new in redirects.items():
+    assert f'{old} {new} 301' in (out/'_redirects').read_text()
+    assert not (out/old.strip('/')/'index.html').exists(), old
+    assert (out/new.strip('/')/'index.html').exists(), new
+for folder in ('renders','products','categories','details'):
+    assert not (out/'assets'/folder).exists()
+print(f'Verified {len(pages)} pages, 23 PDF entries, industries, redirects, image gating and GLB headers.')

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+- Replaced the catalogue with 23 entries and split Columns from Heat Exchangers.
+- Added the Industries We Serve section and updated catalogue navigation, quotation options, SEO and the PDF.
+- Added 23 visually reviewed photorealistic concept renders and legacy route redirects.
+
 ## 2.0.0
 
 - Added original reactor-led homepage, responsive navigation and individual company, fabrication, industry, gallery, enquiry and catalogue pages.
