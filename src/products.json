@@ -14,7 +14,8 @@
       "width": 440,
       "height": 440,
       "reference": "01A"
-    }
+    },
+    "sizing_profile": "reactor"
   },
   {
     "title": "Limpet Coil Reactors",
@@ -31,7 +32,8 @@
       "width": 439,
       "height": 440,
       "reference": "02A"
-    }
+    },
+    "sizing_profile": "reactor"
   },
   {
     "title": "Autoclave Reactors",
@@ -48,7 +50,8 @@
       "width": 439,
       "height": 440,
       "reference": "03A"
-    }
+    },
+    "sizing_profile": "reactor"
   },
   {
     "title": "Shell & Tube Heat Exchanger",
@@ -65,7 +68,8 @@
       "width": 440,
       "height": 440,
       "reference": "04A"
-    }
+    },
+    "sizing_profile": "thermal"
   },
   {
     "title": "Box Type Heat Exchanger",
@@ -82,7 +86,8 @@
       "width": 440,
       "height": 439,
       "reference": "05A"
-    }
+    },
+    "sizing_profile": "thermal"
   },
   {
     "title": "Reboiler",
@@ -99,7 +104,8 @@
       "width": 1024,
       "height": 512,
       "reference": "06A"
-    }
+    },
+    "sizing_profile": "thermal"
   },
   {
     "title": "Distillation Columns",
@@ -116,7 +122,8 @@
       "width": 439,
       "height": 439,
       "reference": "07A"
-    }
+    },
+    "sizing_profile": "column"
   },
   {
     "title": "High Pressure Vessel",
@@ -133,7 +140,8 @@
       "width": 440,
       "height": 439,
       "reference": "08A"
-    }
+    },
+    "sizing_profile": "vessel"
   },
   {
     "title": "Stainless Steel / Mild Steel / Carbon Steel Storage Tank",
@@ -150,7 +158,8 @@
       "width": 440,
       "height": 440,
       "reference": "09A"
-    }
+    },
+    "sizing_profile": "vessel"
   },
   {
     "title": "Vertical / Horizontal Storage Tank",
@@ -167,7 +176,8 @@
       "width": 439,
       "height": 440,
       "reference": "10A"
-    }
+    },
+    "sizing_profile": "vessel"
   },
   {
     "title": "Vertical / Horizontal Receivers",
@@ -184,7 +194,8 @@
       "width": 439,
       "height": 440,
       "reference": "11A"
-    }
+    },
+    "sizing_profile": "vessel"
   },
   {
     "title": "Underground Storage Tank",
@@ -201,7 +212,8 @@
       "width": 440,
       "height": 440,
       "reference": "12A"
-    }
+    },
+    "sizing_profile": "vessel"
   },
   {
     "title": "Insulated Storage Tank",
@@ -218,7 +230,8 @@
       "width": 440,
       "height": 439,
       "reference": "13A"
-    }
+    },
+    "sizing_profile": "vessel"
   },
   {
     "title": "Rotocone Vacuum Dryer (RCVD)",
@@ -235,7 +248,8 @@
       "width": 1024,
       "height": 683,
       "reference": "14A"
-    }
+    },
+    "sizing_profile": "dryer"
   },
   {
     "title": "Rotary Vacuum Dryer (RVD)",
@@ -252,7 +266,8 @@
       "width": 439,
       "height": 439,
       "reference": "15A"
-    }
+    },
+    "sizing_profile": "dryer"
   },
   {
     "title": "Fluid Bed Dryer (FBD)",
@@ -269,7 +284,8 @@
       "width": 440,
       "height": 439,
       "reference": "16A"
-    }
+    },
+    "sizing_profile": "dryer"
   },
   {
     "title": "Vacuum Tray Dryer (VTD)",
@@ -286,7 +302,8 @@
       "width": 440,
       "height": 440,
       "reference": "17A"
-    }
+    },
+    "sizing_profile": "dryer"
   },
   {
     "title": "Air Tray Dryer",
@@ -303,7 +320,8 @@
       "width": 439,
       "height": 440,
       "reference": "18A"
-    }
+    },
+    "sizing_profile": "dryer"
   },
   {
     "title": "Agitated Nutsche Filter Dryer (ANFD)",
@@ -320,7 +338,8 @@
       "width": 439,
       "height": 440,
       "reference": "19A"
-    }
+    },
+    "sizing_profile": "filter"
   },
   {
     "title": "Nutsche Filter (NF)",
@@ -337,7 +356,8 @@
       "width": 440,
       "height": 440,
       "reference": "20A"
-    }
+    },
+    "sizing_profile": "filter"
   },
   {
     "title": "Ribbon Blender",
@@ -354,7 +374,8 @@
       "width": 440,
       "height": 439,
       "reference": "21A"
-    }
+    },
+    "sizing_profile": "blender"
   },
   {
     "title": "Octagonal Blender",
@@ -371,7 +392,8 @@
       "width": 439,
       "height": 439,
       "reference": "22A"
-    }
+    },
+    "sizing_profile": "blender"
   },
   {
     "title": "Double Cone Blender",
@@ -388,6 +410,7 @@
       "width": 439,
       "height": 439,
       "reference": "23A"
-    }
+    },
+    "sizing_profile": "blender"
   }
 ]

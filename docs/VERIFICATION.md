@@ -1,5 +1,13 @@
 # Verification report
 
+## V2.2 release checks
+
+The production build, lint, static checks and Chromium suite passed. The checks covered 23 product pages and PDF entries, sizing labels and units, legacy redirects, six category pages and five WebGL viewers. Chromium checked the redesigned company and contact pages at 360 and 1440 pixels, plus catalogue, homepage, quotation and representative product layouts at six widths. Quotation tests verified that equipment-specific sizing is included in email and WhatsApp drafts. The tests intercepted the drafts locally.
+
+The catalogue publishes sizing metrics and units with “Sizing on request”. Unity Engineering has yet to supply verified numeric capacity figures for the public catalogue.
+
+## V2.0 archive
+
 ## Built deliverables
 
 - 63 routable pages and a custom 404. The 63 routes include six equipment categories and all 45 authoritative product entries.

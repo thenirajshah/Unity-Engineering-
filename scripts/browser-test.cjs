@@ -48,7 +48,11 @@ async function run() {
   page.on('pageerror', (error) => errors.push(String(error)));
   for (const width of [360,390,768,1024,1440,1920]) {
     await page.setViewportSize({width, height:900});
-    for (const route of ['/', '/products/', '/quotation/', '/products/limpet-coil-reactors/']) {
+    const routes = ['/', '/products/', '/quotation/', '/products/limpet-coil-reactors/'];
+    if ([360,1440].includes(width)) {
+      routes.push('/about/', '/manufacturing/', '/infrastructure/', '/quality/', '/industries/', '/gallery/', '/catalogue/', '/privacy/', '/contact/');
+    }
+    for (const route of routes) {
       await page.goto(origin + route);
       assert(await page.locator('h1').isVisible(), route);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth
@@ -86,12 +90,20 @@ async function run() {
   assert(await page.locator('#no-results').isVisible());
   await page.locator('#search').fill('');
   assert.equal(await page.locator('#count').textContent(),'7 equipment entries');
+  await page.getByRole('button',{name:'Clear filters'}).click();
+  assert.equal(await page.locator('#count').textContent(),'23 equipment entries');
   await page.goto(origin + '/quotation/?equipment=limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-name').inputValue(),'limpet-coil-reactors');
   assert.equal(await page.locator('#equipment-category').inputValue(),'0');
+  assert(await page.getByLabel('Working volume (L, optional)').isVisible());
+  assert(!(await page.locator('#general-sizing').isVisible()));
   assert.equal(await page.locator('form').evaluate(form => form.checkValidity()), false);
   await page.locator('#equipment-category').selectOption('1');
   assert.equal(await page.locator('#equipment-name').inputValue(),'');
+  assert(await page.locator('#general-sizing').isVisible());
+  await page.locator('#equipment-name').selectOption('shell-tube-heat-exchanger');
+  await page.getByLabel('Thermal duty (kW, optional)').fill('35');
+  await page.getByLabel('Heat-transfer area (m², optional)').fill('4.5');
   for (const [field,value] of Object.entries({name:'Testing',company:'Sample Company',email:'qa@example.test',phone:'+919999999999',requirements:'Example enquiry only'})) {
     await page.locator('#'+field).fill(value);
   }
@@ -100,6 +112,8 @@ async function run() {
   const draft = new URL(await page.evaluate(() => window.draftUrl));
   assert.equal(draft.origin + draft.pathname,'https://wa.me/919934969351');
   assert(draft.searchParams.get('text').includes('Example enquiry only'));
+  assert(draft.searchParams.get('text').includes('Thermal duty: 35 kW'));
+  assert(draft.searchParams.get('text').includes('Heat-transfer area: 4.5 m²'));
   await page.evaluate(() => {
     const click = HTMLAnchorElement.prototype.click;
     HTMLAnchorElement.prototype.click = function () {
@@ -111,9 +125,16 @@ async function run() {
   const emailDraft = new URL(await page.evaluate(() => window.emailDraft));
   assert.equal(emailDraft.pathname,'Nirajkumarshah17@gmail.com');
   assert(emailDraft.searchParams.get('body').includes('Example enquiry only'));
+  assert(emailDraft.searchParams.get('body').includes('Thermal duty: 35 kW'));
   assert.equal(await page.locator('#form-status').textContent(),'Review and send the draft in your email app.');
   assert.equal(await page.locator('a[href^="tel:"]').first().getAttribute('href'),'tel:+919934969351');
   assert.equal(await page.locator('a[href^="mailto:"]').first().getAttribute('href'),'mailto:Nirajkumarshah17@gmail.com');
+  await page.goto(origin + '/quotation/?equipment=distillation-process-column');
+  await page.getByLabel('Design feed rate unit').selectOption('m³/h');
+  await page.getByLabel('Design feed rate (optional)').fill('0');
+  assert.equal(await page.locator('#sizing-feed-rate').evaluate(input => input.validity.valid), false);
+  await page.getByLabel('Design feed rate (optional)').fill('2.5');
+  assert.equal(await page.locator('#sizing-feed-rate').evaluate(input => input.validity.valid), true);
 
   const viewers = ['reactor-limpet','exchanger','pressure','anfd','ribbon'];
   for (const p of products) {

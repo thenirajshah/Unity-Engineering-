@@ -5,6 +5,7 @@ from urllib.parse import quote, urlsplit
 import json
 import os
 import shutil
+from sizing import enquiry_profile, metrics, units_text, value_text
 
 ROOT = Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
@@ -39,6 +40,19 @@ def caturl(i):
 
 def quoteurl(p):
     return '/quotation/?equipment=' + quote(p['slug'])
+
+def sizing_block(p):
+    rows = []
+    has_figures = bool(p.get('verified_sizing'))
+    for metric, approved in metrics(p):
+        value = value_text(approved) if approved is not None else units_text(metric)
+        basis = approved.get('basis') if approved is not None else None
+        note = f'<small>{e(basis)}</small>' if basis else ''
+        if approved is None and has_figures:
+            note = '<small>Sizing on request</small>'
+        rows.append(f'<div><dt>{e(metric["label"])}</dt><dd>{e(value)}{note}</dd></div>')
+    availability = '' if has_figures else '<p class="sizing-status">Sizing on request</p>'
+    return f'<div class="sizing-summary"><h2>Capacity &amp; sizing</h2>{availability}<dl class="tech">{"".join(rows)}</dl></div>'
 
 def image(p):
     approval = p.get('approved_image')
@@ -87,16 +101,16 @@ def links(entries, path):
 
 def header(path):
     mega = ''.join(
-        f'<div><a class="menu-cat" href="{caturl(i)}">{e(c[1])}</a>' +
-        ''.join(f'<a href="{url(p)}">{e(p["title"])}</a>' for p in PRODUCTS if p['cat'] == i) +
-        '</div>' for i, c in enumerate(CATEGORIES)
+        f'<div><a class="menu-cat" href="{caturl(i)}">{e(c[1])}</a><p>{e(c[2])}</p></div>'
+        for i, c in enumerate(CATEGORIES)
     )
     current = ' class="active"' if path.startswith('/products/') else ''
     return f'''<a class="skip" href="#main">Skip to content</a><header class="header" id="top">
 <div class="nav shell">{brand()}<button type="button" class="menu-button" aria-expanded="false" aria-controls="navigation">Menu</button>
 <nav id="navigation" aria-label="Primary navigation">{links([("/", "Home"), ("/about/", "About")],path)}
 <details class="mega"><summary{current}>Products</summary><div class="mega-panel"><a class="menu-cat" href="/products/">Browse full catalogue</a><div class="mega-grid">{mega}</div></div></details>
-{links([("/manufacturing/","Manufacturing"),("/industries/","Industries"),("/gallery/","Gallery"),("/contact/","Contact")], path)}</nav>
+{links([("/manufacturing/","Manufacturing"),("/industries/","Industries"),("/gallery/","Gallery"),("/contact/","Contact")], path)}
+<a class="drawer-quote" href="/quotation/">Request a Quote</a></nav>
 {button('/quotation/', 'Request a Quote', 'nav-quote')}</div></header>'''
 
 def footer():
@@ -132,15 +146,15 @@ def page(path, title, summary, content, trail=(), structured=None):
 <meta property="og:image" content="{e(social)}"><meta name="twitter:card" content="summary_large_image">{canonical}
 <link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False).replace('<',chr(92)+'u003c')}</script><script src="/assets/site.js" defer></script>
-</head><body>{header(path)}<main id="main">{bread}{content}</main>{footer()}</body></html>'''
+</head><body>{header(path)}<main id="main" tabindex="-1">{bread}{content}</main>{footer()}</body></html>'''
     out = DIST / path.strip('/')
     if path.endswith('/'):
         out = out / 'index.html'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(document)
 
-def intro(label, heading, description):
-    return f'<section class="shell intro"><p class="kicker">{e(label)}</p><h1>{e(heading)}</h1><p class="lede">{e(description)}</p></section>'
+def intro(label, heading, description, style=''):
+    return f'<section class="shell intro {style}"><p class="kicker">{e(label)}</p><h1>{e(heading)}</h1><p class="lede">{e(description)}</p></section>'
 
 def section(label, heading, content, style='', action=''):
     return f'<section class="band {style}"><div class="shell"><div class="section-head"><div><p class="kicker">{e(label)}</p><h2>{e(heading)}</h2></div>{action}</div>{content}</div></section>'
@@ -148,10 +162,14 @@ def section(label, heading, content, style='', action=''):
 def card(p, preview=False):
     search = e(' '.join([p['title'],p['desc'],p['kind'],CATEGORIES[p['cat']][1]]), quote=True)
     quick = (f'<button class="link preview" type="button" data-title="{e(p["title"])}" data-detail="{e(p["desc"])}" hidden>Quick preview</button>' if preview else '')
+    metric, approved = next(metrics(p))
+    metric_text = value_text(approved) if approved is not None else f'{metric["label"]} · {units_text(metric)}'
+    sizing_status = '' if approved is not None else '<span>Sizing on request</span>'
     return f'''<article class="card" data-category="{p["cat"]}" data-search="{search}">
 <a class="card-image" href="{url(p)}" tabindex="-1" aria-hidden="true">{pic(p)}</a>
 <div class="card-body"><p class="kicker">{e(CATEGORIES[p["cat"]][1])}</p><h3><a href="{url(p)}">{e(p["title"])}</a></h3>
-<p>{e(p["desc"])}</p><div class="card-actions"><a href="{url(p)}">View details</a>{quick}<a href="{quoteurl(p)}">Request quotation</a></div></div></article>'''
+<p>{e(p["desc"])}</p><p class="card-sizing"><strong>{e(metric_text)}</strong>{sizing_status}</p>
+<div class="card-actions"><a href="{url(p)}">View details</a>{quick}<a href="{quoteurl(p)}">Request quotation</a></div></div></article>'''
 
 def cards(products, preview=False):
     return '<div class="cards">' + ''.join(card(p,preview) for p in products) + '</div>'
@@ -176,7 +194,9 @@ def category_cards():
         for i,c in enumerate(CATEGORIES)) + '</div>'
 
 def contact_block():
-    return f'<div class="contact-cols"><div><h3>Visit</h3><address>{ADDRESS}</address><a href="{MAP}">Open in Maps</a></div><div><h3>Call or message</h3><a href="tel:+919934969351">{PHONE}</a><a href="https://wa.me/919934969351">WhatsApp</a></div><div><h3>Email</h3><a href="mailto:{EMAIL}">{EMAIL}</a></div></div>'
+    return f'''<div class="contact-cols"><div><h3>Visit</h3><address>{ADDRESS}</address>{button(MAP, "Open in Maps", "outline")}</div>
+<div><h3>Call or message</h3><p>{PHONE}</p><div class="actions">{button("tel:+919934969351", "Call", "outline")}{button("https://wa.me/919934969351", "WhatsApp", "outline")}</div></div>
+<div><h3>Email</h3><p>{EMAIL}</p>{button(f"mailto:{EMAIL}", "Send email", "outline")}</div></div>'''
 
 def quote_banner():
     return f'<div class="quote-band"><p class="kicker">Project enquiries</p><h2>Discuss your equipment requirements.</h2>{button("/quotation/","Request a Quotation")}</div>'
@@ -186,35 +206,27 @@ def build_home():
     hero = f'''<section class="hero">
 <picture class="hero-art"><source media="(max-width: 700px)" srcset="/assets/hero-mobile.webp"><img src="/assets/hero.webp" width="1536" height="1024" alt="Concept render of a stainless steel limpet coil reactor" fetchpriority="high"></picture>
 <div class="shell hero-layout"><div class="hero-copy"><p class="kicker hero-kicker">Process equipment fabrication</p>
-<h1>Engineered<br>for Precision.<br><em>Built for Industry.</em></h1>
-<p class="lede">Unity Engineering fabricates customized pharmaceutical, chemical and industrial process equipment, serving demanding engineering requirements since 2006.</p>
+<h1>Process equipment.<br><em>Built for your duty.</em></h1>
+<p class="lede">Reactors, heat exchangers, columns and batch equipment fabricated around your process requirements in Ankleshwar, Gujarat.</p>
 <div class="actions">{button('/products/', 'Explore Products')}{button('/quotation/', 'Request a Quotation', 'outline')}</div></div>
 <div class="hero-visual">{viewer(hero_product, True)}<div class="hero-caption"><span>Limpet coil reactor</span><small>Concept visualization</small></div></div></div></section>
 <div class="shell statbar"><div><b>2006</b><span>Established</span></div><div><b>{len(PRODUCTS)}</b><span>Equipment entries</span></div><div class="stat-location">ANKLESHWAR GIDC<br>GUJARAT, INDIA</div></div>'''
-    body = hero + section('Unity Engineering','Engineering Excellence Since 2006.',
-        '<div class="split-copy"><p class="lede">Based in Ankleshwar GIDC, Unity Engineering fabricates process equipment around each customer’s application, operating conditions and site requirements.</p>' + button('/about/','About Unity Engineering','outline')+'</div>','light')
-    body += section('Equipment catalogue','Explore equipment families.',category_cards(), 'light')
-    body += section('Featured equipment','Key equipment for process operations.',cards([next(p for p in PRODUCTS if p['kind'] == kind) for kind in FEATURED[:3]]), action=button('/products/','View all equipment','outline'))
-    body += section('Interactive 3D','Inspect the equipment from every angle.',viewer(hero_product)+'<p class="caption">Concept model · Illustrative geometry</p><div class="viewer-links">'+''.join(button(url(p),p['title'],'outline') for p in PRODUCTS if p['kind'] in FEATURED)+'</div>')
-    process = '<div class="story"><img src="/assets/fabrication/welding.webp" alt="Concept image of a welder joining metal components" width="620" height="410" loading="lazy"><div><h3>From drawing to dispatch.</h3><p>Engineering, forming, joining, finishing and inspection are coordinated around the agreed project scope.</p>'+button('/manufacturing/','Explore fabrication','outline')+'</div></div>'
-    body += section('Manufacturing','A process shaped by the specification.',process,'light')
+    body = hero + section('Equipment catalogue','Find equipment by process duty.',category_cards(), 'light', button('/products/','View all equipment','outline'))
     body += section('Industries We Serve','Solutions for Critical Manufacturing Environments',industry_cards(),action=button('/industries/','View industries','outline'))
-    engineering_details = [('tubesheet','Tube-side flow'),('impeller','Drive and mixing geometry'),('discharge','Drain and support interfaces')]
-    quality_gallery = '<div class="image-grid engineering-details">'+''.join(
-        f'<figure><img src="/assets/cinematic/{key}.webp" alt="Concept equipment detail showing {label.lower()}" width="720" height="720" loading="lazy"><figcaption>{label} · Concept detail</figcaption></figure>'
-        for key,label in engineering_details)+'</div>'
-    body += section('Quality assurance','Define the inspection requirements early.',
-        '<p class="lede">Operating conditions, materials and interfaces inform the drawing review and inspection plan.</p>'+quality_gallery,'light',button('/quality/','Quality approach','outline'))
-    body += section('Gallery','Equipment concepts in detail.', '<div class="image-grid">'+''.join(pic(p) for p in PRODUCTS if p['kind'] in FEATURED[3:])+'</div>',action=button('/gallery/','Open Equipment Gallery','outline'))
-    body += section('PDF catalogue',f'All {len(PRODUCTS)} equipment entries in one reference.',button('/assets/catalogue.pdf','Download catalogue PDF','outline')+' '+button('/catalogue/','Catalogue overview','outline'),'light')
+    process = '<div class="story"><img src="/assets/fabrication/welding.webp" alt="Concept image of a welder joining metal components" width="620" height="410" loading="lazy"><div><h3>From drawing to dispatch.</h3><p>Engineering, forming, joining, finishing and inspection are coordinated around the agreed project scope.</p>'+button('/manufacturing/','Explore fabrication','outline')+'</div></div>'
+    body += section('Manufacturing','A process shaped by the specification.',process,'light',button('/quality/','Quality approach','outline'))
     body += '<section class="shell">'+quote_banner()+'</section>'
-    body += section('Contact','Unity Engineering, Ankleshwar.',contact_block())
     page('/', 'Unity Engineering | Process Equipment Fabricator in Ankleshwar', f'Pharmaceutical, chemical and industrial process equipment fabrication in Ankleshwar, Gujarat. Explore {len(PRODUCTS)} equipment entries and request a quotation.', body)
 
 def build_products():
-    filters = '<div class="catalog-controls"><label for="search">Search equipment</label><input id="search" type="search" placeholder="Search by equipment name or type"><label for="category">Category</label><select id="category"><option value="">All categories</option>'+''.join(f'<option value="{i}">{e(c[1])}</option>' for i,c in enumerate(CATEGORIES))+f'</select><p id="count" role="status">{len(PRODUCTS)} equipment entries</p></div>'
-    dialog = '<dialog id="preview-dialog"><form method="dialog"><button class="link" aria-label="Close quick preview">Close</button></form><img width="640" height="540" alt="" hidden><div class="image-pending">Image pending</div><h2></h2><p></p><div class="actions"><a class="btn detail-link">View details</a><a class="btn outline quote-link">Request quotation</a></div></dialog>'
-    page('/products/', 'Process Equipment Catalogue', 'Find reactors, heat exchangers, vessels, dryers, mixers and processing equipment from Unity Engineering in Ankleshwar.', intro('Equipment','Process equipment catalogue.',f'Browse {len(PRODUCTS)} equipment entries by category.')+'<section class="shell catalog">'+filters+f'<p id="no-results" hidden>No equipment matches your search.</p><div id="product-grid">{cards(PRODUCTS,True)}</div>'+dialog+'</section>'+section('Equipment families','Browse by category.',category_cards(),'light'))
+    choices = ''.join(f'<option value="{i}">{e(c[1])}</option>' for i,c in enumerate(CATEGORIES))
+    filters = f'''<div class="catalog-controls">
+<label for="search">Search equipment<input id="search" type="search" placeholder="e.g. limpet, vacuum dryer"></label>
+<label for="category">Category<select id="category"><option value="">All categories</option>{choices}</select></label>
+<button type="button" class="btn outline" id="clear-filters" disabled>Clear filters</button></div>
+<div class="catalog-status"><p id="count" role="status">{len(PRODUCTS)} equipment entries</p><a href="/assets/catalogue.pdf" download>Download PDF catalogue</a></div>'''
+    dialog = '<dialog id="preview-dialog" aria-labelledby="preview-title"><form method="dialog"><button class="link" aria-label="Close quick preview">Close</button></form><img width="640" height="540" alt="" hidden><div class="image-pending">Image pending</div><h2 id="preview-title"></h2><p></p><div class="actions"><a class="btn detail-link">View details</a><a class="btn outline quote-link">Request quotation</a></div></dialog>'
+    page('/products/', 'Process Equipment Catalogue', 'Find reactors, heat exchangers, vessels, dryers, mixers and processing equipment from Unity Engineering in Ankleshwar.', intro('Equipment','Process equipment catalogue.',f'Browse {len(PRODUCTS)} equipment entries by category.', 'compact-intro')+'<section class="shell catalog">'+filters+f'<p id="no-results" hidden>No equipment matches your search.</p><div id="product-grid">{cards(PRODUCTS,True)}</div>'+dialog+'</section>'+section('Equipment families','Browse category pages.',category_cards(),'light'))
     for i,(_,title,description) in enumerate(CATEGORIES):
         products = [p for p in PRODUCTS if p['cat'] == i]
         banner = pic(products[0])
@@ -222,15 +234,22 @@ def build_products():
     for p in PRODUCTS:
         title = p['title']
         caption = image_caption(p)
-        gallery = '<div class="product-gallery"><figure>'+pic(p)+(f'<figcaption>{caption}</figcaption>' if caption else '')+'</figure></div>'
-        lead = intro(CATEGORIES[p['cat']][1], title,p['desc'])
+        gallery = '<figure class="product-image">'+pic(p)+(f'<figcaption>{caption}</figcaption>' if caption else '')+'</figure>'
         tech = f'''<div class="detail-grid"><div><h3>Equipment overview</h3><p>{e(p['desc'])}</p><h3>Working principle</h3><p>{e(p['principle'])}</p><h3>Industrial applications</h3><p>{e(p['application'])}</p><h3>Construction features</h3><p>{e(p['features'])}.</p></div>
 <div><h3>Material options</h3><p>Materials are selected for process compatibility and as per approved engineering specifications.</p><h3>Customization</h3><p>Process interfaces, drive or support arrangements and access provisions are configured for the application.</p>
-<h3>Technical specifications</h3><dl class="tech"><div><dt>Capacity or throughput</dt><dd>As per customer requirement</dd></div><div><dt>Design pressure and temperature</dt><dd>As applicable to the duty</dd></div><div><dt>Material grades and acceptance</dt><dd>As per approved engineering specifications</dd></div></dl></div></div>'''
-        viz = section('Interactive equipment','Inspect the concept model.',viewer(p)+'<p class="caption">Illustrative geometry · Final construction is project-specific.</p>') if p['kind'] in FEATURED else ''
+<h3>Technical specifications</h3><dl class="tech"><div><dt>Design pressure and temperature</dt><dd>As applicable to the duty</dd></div><div><dt>Material grades and acceptance</dt><dd>As per approved engineering specifications</dd></div></dl></div></div>'''
+        has_3d = p['kind'] in FEATURED
+        viz = '<div id="interactive-model">'+section('Interactive equipment','Inspect the concept model.',viewer(p)+'<p class="caption">Illustrative geometry · Final construction is project-specific.</p>')+'</div>' if has_3d else ''
         related = [other for other in PRODUCTS if other is not p and other['cat'] == p['cat']][:3]
         product_quote = button(quoteurl(p),'Request quotation for this equipment')
-        content = lead+'<div class="shell product-lead">'+product_quote+gallery+'</div>'+section('Engineering overview','Process and construction.',tech,'light')+viz+(section('Related equipment','Explore related configurations.',cards(related),'light') if related else '')
+        detail_links = [('#engineering','Engineering details')]
+        if has_3d:
+            detail_links.append(('#interactive-model','Interactive 3D'))
+        lead = f'''<section class="shell product-hero"><div>
+<p class="kicker">{e(CATEGORIES[p['cat']][1])}</p><h1>{e(title)}</h1><p class="lede">{e(p['desc'])}</p>
+<p class="product-application">{e(p['application'])}</p>{sizing_block(p)}<div class="actions">{product_quote}</div>
+<nav class="product-nav" aria-label="Product sections">{links(detail_links,'')}</nav></div>{gallery}</section>'''
+        content = lead+'<div id="engineering">'+section('Engineering overview','Process and construction.',tech,'light')+'</div>'+viz+(section('Related equipment','Explore related configurations.',cards(related),'light') if related else '')
         schema = {'@context':'https://schema.org','@type':'Product','name':title,'description':p['desc'],'category':CATEGORIES[p['cat']][1]}
         if image(p):
             schema['image'] = SITE + image(p)
@@ -247,41 +266,75 @@ def build_information():
          [('/products/','Products')])
     page('/industries/', 'Industries We Serve', 'Process equipment applications for pharmaceuticals, agrochemicals, fine and specialty chemicals, and process R&D.',
          intro('Industries We Serve', 'Solutions for Critical Manufacturing Environments', 'Explore equipment by application.')
-         +'<section class="shell industries-page">'+industry_cards()+'</section>')
+         +'<section class="shell industries-page">'+industry_cards()+'</section><div class="shell">'+quote_banner()+'</div>')
     stages = [
         ('drawings','Engineering and drawing preparation'),('cutting','Marking and plasma cutting'),
         ('rolling','Plate rolling'),('forming','Dish end forming'),('coil','Shell, limpet coil and jacket fabrication'),
         ('welding','Nozzle fabrication, fit-up and welding'),('machining','Machining and shaft assembly'),
         ('polishing','Surface finishing, buffing and polishing'),('inspection','Inspection and testing'),
         ('dispatch','Final assembly and dispatch')]
+    profiles = {
+        'about': ('drawings', 'Reviewing an equipment drawing', 'Equipment built around the project.', '/manufacturing/', 'Explore manufacturing'),
+        'manufacturing': ('welding', 'Welding a vessel component', 'Fabrication sequence.', '/quality/', 'See quality approach'),
+        'infrastructure': ('dispatch', 'Preparing equipment for dispatch', 'Plan equipment interfaces and delivery.', '/contact/', 'Discuss site requirements'),
+        'quality': ('inspection', 'Inspecting a fabricated component', 'Agree the acceptance criteria.', '/quotation/', 'Share your specification'),
+    }
     for slug, (label, heading, description, *sections) in PAGES.items():
         if slug == 'industries':
             continue
-        content = intro(label,heading,description)
-        content += section(label,'Project considerations.', '<div class="info-grid">'+''.join(f'<article><h3>{e(h)}</h3><p>{e(t)}</p></article>' for h,t in sections)+'</div>','light')
+        if slug == 'privacy':
+            content = intro(label,heading,description,'compact-intro')
+            content += '<div class="shell legal-copy">'+''.join(f'<section><h2>{e(h)}</h2><p>{e(t)}</p></section>' for h,t in sections)+'</div>'
+            page('/privacy/',label,description,content)
+            continue
+        visual, image_description, subject, action_path, action_label = profiles[slug]
+        content = f'''<div class="shell editorial-hero">{intro(label,heading,description)}
+<figure><img src="/assets/fabrication/{visual}.webp" alt="Concept depiction of {e(image_description.lower())}" width="392" height="392">
+<figcaption>{e(image_description)} · Concept visualization</figcaption></figure></div>'''
+        overview = '<div class="process-list">'+''.join(f'<article><h3>{e(h)}</h3><p>{e(t)}</p></article>' for h,t in sections)+'</div>'
+        content += section(label,subject,overview,'light',button(action_path,action_label,'outline'))
         if slug == 'manufacturing':
             content += section('Fabrication workflow','Stages from preparation to dispatch.', '<div class="image-grid process-grid">'+''.join(f'<figure><img src="/assets/fabrication/{key}.webp" alt="Concept depiction of {e(stage.lower())}" width="620" height="410" loading="lazy"><figcaption>{e(stage)}</figcaption></figure>' for key,stage in stages)+'</div><p class="caption">Concept visualization of fabrication activities</p>')
         if slug in ('infrastructure','about'):
             content += section('Contact','Find Unity Engineering.',contact_block())
         page('/'+slug+'/',label,description,content+'<div class="shell">'+quote_banner()+'</div>')
-    page('/contact/','Contact Us','Contact Unity Engineering in Ankleshwar, Gujarat for process equipment fabrication enquiries.',intro('Contact','Talk to Unity Engineering.','For equipment selection and fabrication enquiries, share your process duty and project requirements.')+section('Ankleshwar, Gujarat','Phone, email and address.',contact_block(),'light')+'<div class="shell">'+quote_banner()+'</div>')
-    page('/gallery/','Equipment Gallery','Equipment images by product family from Unity Engineering.',intro('Gallery','Equipment in detail.','Approved product images grouped by process duty.')+''.join(section('Equipment gallery',c[1],'<div class="image-grid">'+''.join(f'<figure><a href="{url(p)}">{pic(p)}</a><figcaption><a href="{url(p)}">{e(p["title"])}</a>{" · " + image_caption(p) if image(p) else ""}</figcaption></figure>' for p in PRODUCTS if p['cat']==i)+'</div>') for i,c in enumerate(CATEGORIES)))
-    page('/catalogue/','Download Product Catalogue','Download the Unity Engineering process equipment catalogue PDF.',intro('Product catalogue','The equipment reference.','A downloadable guide to all 45 Unity Engineering catalogue entries.')+section('PDF','Unity Engineering equipment catalogue.',button('/assets/catalogue.pdf','Download equipment catalogue PDF'),'light')+section('Equipment families','Browse the online catalogue.',category_cards()))
+    contact_intro = intro('Contact','Talk to Unity Engineering.','Tell us about your process duty, required sizing and project timeline.','compact-intro')
+    page('/contact/','Contact Us','Contact Unity Engineering in Ankleshwar, Gujarat for process equipment fabrication enquiries.',contact_intro+section('Ankleshwar, Gujarat','Contact the workshop.',contact_block(),'light',button('/quotation/','Start an equipment enquiry')))
+    gallery_nav = '<nav class="shell gallery-nav" aria-label="Gallery categories">'+links([('#'+c[0],e(c[1])) for c in CATEGORIES],'')+'</nav>'
+    galleries = []
+    for i,(slug,title,_) in enumerate(CATEGORIES):
+        images = ''.join(
+            f'<figure><a href="{url(p)}">{pic(p)}</a><figcaption><a href="{url(p)}">{e(p["title"])}</a><span>{image_caption(p)}</span></figcaption></figure>'
+            for p in PRODUCTS if p['cat']==i
+        )
+        galleries.append(f'<div id="{slug}">'+section('Equipment gallery',title,'<div class="image-grid gallery-grid">'+images+'</div>')+'</div>')
+    page('/gallery/','Equipment Gallery','Equipment images by product family from Unity Engineering.',intro('Gallery','Equipment in detail.','Browse concept renders by equipment family and open a product to see its sizing details.','compact-intro')+gallery_nav+''.join(galleries))
+    pdf_intro = intro('Product catalogue','Download the equipment catalogue.',f'A PDF guide to {len(PRODUCTS)} products, with sizing metrics and concept renders.','compact-intro')
+    pdf_actions = '<div class="shell actions catalogue-download">'+button('/assets/catalogue.pdf','Download equipment catalogue PDF')+button('/products/','Browse products online','outline')+'</div>'
+    page('/catalogue/','Download Product Catalogue','Download the Unity Engineering process equipment catalogue PDF.',pdf_intro+pdf_actions+section('Equipment families','Browse the online catalogue.',category_cards(),'light'))
     fields = [
         ('name','Customer name','text','name',True),('company','Company name','text','organization',True),
         ('email','Email','email','email',True),('phone','Mobile number','tel','tel',True),
-        ('capacity','Required capacity','text','off',False),('material','Material requirement','text','off',False),
+        ('material','Material requirement','text','off',False),
         ('pressure','Design pressure','text','off',False),('temperature','Design temperature','text','off',False)]
-    inputs = ''.join(f'<label for="{key}">{label}<input id="{key}" name="{key}" type="{kind}" autocomplete="{auto}" maxlength="150"{" required" if required else ""}></label>' for key,label,kind,auto,required in fields)
+    inputs = [f'<label for="{key}">{label}<input id="{key}" name="{key}" type="{kind}" autocomplete="{auto}" maxlength="150"{" required" if required else ""}></label>' for key,label,kind,auto,required in fields]
     cats = ''.join(f'<option value="{i}">{e(c[1])}</option>' for i,c in enumerate(CATEGORIES))
-    options = ''.join(f'<option value="{p["slug"]}" data-category="{p["cat"]}">{e(p["title"])}</option>' for p in PRODUCTS)
-    enquiry = f'''<form id="enquiry" action="/contact/"><div class="form-grid">{inputs}
+    options = ''.join(
+        f'<option value="{p["slug"]}" data-category="{p["cat"]}" data-sizing="{e(json.dumps(enquiry_profile(p), ensure_ascii=False))}">{e(p["title"])}</option>'
+        for p in PRODUCTS
+    )
+    enquiry = f'''<form id="enquiry" action="/contact/" class="enquiry">
+<fieldset><legend>Contact details</legend><div class="form-grid">{''.join(inputs[:4])}</div></fieldset>
+<fieldset><legend>Equipment and sizing</legend><div class="form-grid">
 <label for="equipment-category">Equipment category<select id="equipment-category" name="category"><option value="">Select a category</option>{cats}</select></label>
 <label for="equipment-name">Equipment name<select id="equipment-name" name="equipment"><option value="">Select equipment</option>{options}</select></label>
-<label class="wide" for="requirements">Project requirements<textarea id="requirements" name="requirements" rows="5" maxlength="1500" required></textarea></label></div>
+</div><div id="general-sizing"><label for="capacity">Required sizing <span>(optional)</span><input id="capacity" name="capacity" type="text" maxlength="150" placeholder="Enter the value and unit if known"></label></div>
+<p id="sizing-help" class="form-help" hidden></p><div class="form-grid" id="equipment-sizing"></div></fieldset>
+<fieldset><legend>Project requirements</legend><div class="form-grid">{''.join(inputs[4:])}
+<label class="wide" for="requirements">Process and project details<textarea id="requirements" name="requirements" rows="5" maxlength="1500" required></textarea></label></div></fieldset>
 <div class="actions"><button class="btn" type="submit" value="email" disabled>Open email draft</button><button class="btn outline" type="submit" value="whatsapp" disabled>Open WhatsApp draft</button></div><p role="status" id="form-status"></p>
 <noscript><p>Use the direct email or phone links to share your enquiry.</p></noscript></form>'''
-    page('/quotation/','Request a Quotation','Prepare a project enquiry for Unity Engineering and send it through your email app or WhatsApp.', intro('Project enquiry','Request a quotation.','Use this form to prepare your message. Review and send the draft in your email or WhatsApp app.')+section('Equipment enquiry','Tell us about the project.',enquiry,'light')+section('Direct enquiry','Contact Unity Engineering.',contact_block()))
+    page('/quotation/','Request a Quotation','Prepare a project enquiry for Unity Engineering and send it through your email app or WhatsApp.', intro('Project enquiry','Request a quotation.','Prepare a draft with your process requirements and send it in your email or WhatsApp app.','compact-intro')+section('Equipment enquiry','Tell us about the project.',enquiry,'light')+section('Direct enquiry','Contact Unity Engineering.',contact_block()))
     page('/404.html','Page not found','Explore the Unity Engineering equipment catalogue or return to the homepage.',intro('404','Page not found.','Use the equipment catalogue to find a product or return to the homepage.')+'<div class="shell actions">'+button('/','Back to home')+button('/products/','Browse equipment','outline')+'</div>')
 
 if DIST.exists():

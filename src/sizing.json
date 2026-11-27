@@ -1,0 +1,39 @@
+{
+  "reactor": {
+    "guidance": "Share the working batch volume, product and operating conditions.",
+    "metrics": [{"key": "working-volume", "label": "Working volume", "units": ["L"]}]
+  },
+  "vessel": {
+    "guidance": "Share the required nominal volume, service fluid and orientation.",
+    "metrics": [{"key": "nominal-volume", "label": "Nominal volume", "units": ["L", "m³"]}]
+  },
+  "thermal": {
+    "guidance": "Share process fluid, inlet and outlet temperatures, and flow rates if known.",
+    "metrics": [
+      {"key": "thermal-duty", "label": "Thermal duty", "units": ["kW"]},
+      {"key": "heat-transfer-area", "label": "Heat-transfer area", "units": ["m²"]}
+    ]
+  },
+  "column": {
+    "guidance": "Include the feed composition and whether the flow is a mass or volumetric rate.",
+    "metrics": [{"key": "feed-rate", "label": "Design feed rate", "units": ["kg/h", "m³/h"], "requires_basis": true}]
+  },
+  "dryer": {
+    "guidance": "Specify the batch load, whether it is wet or dry, and target moisture if known.",
+    "metrics": [{"key": "batch-load", "label": "Batch load", "units": ["kg/batch"]}]
+  },
+  "filter": {
+    "guidance": "Share filter area or cake volume if known, plus slurry and cake characteristics.",
+    "metrics": [
+      {"key": "filtration-area", "label": "Filtration area", "units": ["m²"]},
+      {"key": "cake-volume", "label": "Cake volume", "units": ["L"]}
+    ]
+  },
+  "blender": {
+    "guidance": "Share working volume and the product bulk density if known.",
+    "metrics": [
+      {"key": "working-volume", "label": "Working volume", "units": ["L"]},
+      {"key": "batch-weight", "label": "Batch weight", "units": ["kg/batch"], "requires_basis": true, "published_only": true}
+    ]
+  }
+}

@@ -270,3 +270,92 @@ dialog h2 { font-size: 2rem; }
   .statbar .stat-location { grid-column: 1 / -1; }
 }
 img[src^="/assets/equipment/"] { object-fit: contain; background: #1d2125; }
+
+/* Equipment discovery and sizing */
+#main:focus { outline: none; }
+.drawer-quote { display: none; }
+.mega-grid > div { min-width: 0; padding: .8rem 0; border-top: 1px solid var(--line); }
+.mega-grid p { margin: .35rem 0 0; color: var(--muted); font-size: .85rem; }
+.hero h1 { font-size: clamp(3.1rem, 5.65vw, 5.6rem); }
+.hero h1 em { color: #e2e5e7; }
+.hero-copy { padding-block: clamp(2.5rem, 5vw, 5rem); }
+.compact-intro { padding-block: clamp(1.6rem, 4vw, 3rem) clamp(1rem, 2.6vw, 2.25rem); }
+.compact-intro h1 { font-size: clamp(2.5rem, 5vw, 4.4rem); max-width: 28ch; }
+.catalog-controls { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) auto; align-items: end; padding: 1rem; background: var(--panel); border: 1px solid var(--line); }
+.catalog-controls label { display: grid; gap: .35rem; font-weight: 650; }
+.catalog-controls input, .catalog-controls select { min-height: 47px; background: var(--bg); }
+.catalog-controls button:disabled { opacity: .6; }
+.catalog-status { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; padding-block: .85rem; color: var(--muted); }
+.catalog-status p { margin: 0; }
+.catalog-status a { color: var(--ink); }
+.card, .category { border-radius: .45rem; overflow: clip; }
+.card .card-sizing { display: flex; gap: .25rem .6rem; flex-wrap: wrap; margin-top: auto; padding-top: .65rem; padding-bottom: .7rem; border-block-start: 1px solid var(--line); font-size: .82rem; }
+.card-sizing strong { color: inherit; }
+.card-sizing span { color: var(--accent); }
+.product-hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; gap: clamp(1.25rem, 4vw, 4rem); padding-block: clamp(2rem, 4.5vw, 4.5rem); }
+.product-hero h1 { font-size: clamp(2.45rem, 5.4vw, 5rem); max-width: 21ch; overflow-wrap: anywhere; }
+.product-application { color: var(--muted); max-width: 62ch; }
+.product-image { min-width: 0; padding: clamp(.55rem, 2vw, 1.25rem); background: var(--panel); border: 1px solid var(--line); border-radius: .45rem; }
+.product-image img { width: 100%; height: auto; aspect-ratio: 1; }
+.product-nav, .gallery-nav { display: flex; align-items: center; flex-wrap: wrap; gap: .65rem 1rem; }
+.product-nav { margin-top: 1rem; }
+.gallery-nav { padding-bottom: 1.5rem; }
+.gallery-nav a { border: 1px solid var(--line); padding: .5rem .75rem; text-decoration: none; }
+.gallery-nav a:hover { border-color: var(--accent); }
+.sizing-summary { margin: 1.25rem 0; padding: 1rem 1.2rem; border: 1px solid var(--line); border-left: 3px solid var(--orange); background: var(--panel); }
+.sizing-summary h2 { font-size: clamp(1.35rem, 2.6vw, 1.8rem); }
+.sizing-status { margin-bottom: .65rem; color: var(--accent); font-size: .9rem; font-weight: bold; }
+.sizing-summary .tech div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2rem 1rem; }
+.sizing-summary .tech dd { margin: 0; font-weight: 650; }
+.sizing-summary .tech small { display: block; color: var(--muted); font-weight: 400; }
+.enquiry { max-width: 66rem; }
+.enquiry fieldset { margin: 0 0 1.35rem; padding: 1.25rem; min-width: 0; border: 1px solid var(--line); border-radius: .3rem; }
+.enquiry legend { padding-inline: .45rem; color: var(--dark); font-weight: 750; }
+.enquiry .form-grid:last-child { margin-bottom: 0; }
+.enquiry input, .enquiry select, .enquiry textarea { background: #fff; border-color: #8a959e; }
+#general-sizing { max-width: 33rem; }
+#general-sizing label { display: block; font-weight: 650; }
+#general-sizing span, .form-help { color: var(--muted); font-size: .9rem; font-weight: 400; }
+#general-sizing input { display: block; margin-top: .35rem; }
+.sizing-field { display: grid; grid-template-columns: minmax(0, 1fr) minmax(4.8rem, auto); align-items: end; gap: .65rem; }
+.sizing-unit { display: grid; place-items: center; border: 1px solid var(--line); min-height: 43px; padding-inline: .55rem; white-space: nowrap; }
+.sizing-field label { min-width: 0; }
+
+.editorial-hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding-block: clamp(1.5rem, 3.5vw, 3rem); }
+.editorial-hero .intro { width: 100%; padding-block: 1rem; }
+.editorial-hero h1 { font-size: clamp(2.65rem, 5.7vw, 5.3rem); }
+.editorial-hero figure { background: var(--panel); border: 1px solid var(--line); padding: .6rem; }
+.editorial-hero img { width: 100%; height: auto; aspect-ratio: 1.38; }
+.process-list { max-width: 64rem; border-top: 1px solid var(--line); }
+.process-list article { display: grid; grid-template-columns: minmax(0,.75fr) minmax(0,1.25fr); gap: 1rem 2rem; padding: 1.3rem 0; border-bottom: 1px solid var(--line); }
+.process-list article h3, .process-list article p { margin: 0; }
+.process-list article p { color: var(--muted); }
+.gallery-grid figure { overflow: clip; border: 1px solid var(--line); }
+.gallery-grid figcaption { margin: 0; padding: .85rem; }
+.gallery-grid figcaption > a { display: block; color: var(--ink); font-weight: 650; }
+.gallery-grid figcaption span { display: block; margin-top: .25rem; }
+.catalogue-download, .legal-copy { padding-bottom: 3rem; }
+.legal-copy section { max-width: 70ch; padding-block: 1.2rem; border-top: 1px solid var(--line); }
+.legal-copy h2 { font-size: clamp(1.25rem, 3vw, 2rem); }
+.contact-cols > div { border: 1px solid var(--line); padding: 1rem; }
+.contact-cols .btn { display: inline-flex; margin-top: .6rem; }
+.industry-grid article { background: var(--panel); border-radius: .35rem; }
+.industry-links a { font-size: .9rem; }
+@media (max-width: 960px) {
+  .nav nav > a.drawer-quote { display: block; color: var(--accent); }
+}
+@media (max-width: 700px) {
+  .hero-copy { padding-block: 2rem 0; }
+  .hero h1 { font-size: clamp(2.45rem, 9.8vw, 4.2rem); }
+  .hero-visual { min-height: clamp(440px, 110vw, 625px); }
+  .hero-art { padding-bottom: 70px; }
+  .hero-caption { bottom: 1rem; max-width: 45%; }
+  .hero-viewer .viewer-tools { bottom: .85rem; }
+  .product-hero, .editorial-hero, .process-list article { grid-template-columns: minmax(0, 1fr); }
+  .product-image { max-width: 32rem; }
+  .catalog-controls { grid-template-columns: minmax(0, 1fr) auto; }
+  .catalog-controls label:first-child { grid-column: 1 / -1; }
+  .catalog-status { font-size: .85rem; }
+  .enquiry fieldset { padding: .85rem; }
+  .gallery-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}

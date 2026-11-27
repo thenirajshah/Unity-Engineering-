@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+- Refreshed the homepage, catalogue, product details and company pages around equipment selection and project enquiries.
+- Added equipment-specific sizing metrics and units to the site and PDF. Verified figures can be added to the shared product data when available.
+- Added equipment-specific sizing inputs to quotation drafts and expanded mobile and browser verification.
+
 ## 2.1.0
 
 - Replaced the catalogue with 23 entries and split Columns from Heat Exchangers.

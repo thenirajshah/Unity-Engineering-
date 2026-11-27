@@ -7,6 +7,7 @@ from reportlab.lib.colors import HexColor, white
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader, simpleSplit
 from reportlab.pdfgen import canvas
+from sizing import metrics, units_text, value_text
 
 products = json.loads(Path('src/products.json').read_text())
 categories = json.loads(Path('src/categories.json').read_text())
@@ -59,15 +60,15 @@ pdf.showPage()
 page = 1
 for i, (_,category,description) in enumerate(categories):
     rows = [p for p in products if p['cat'] == i]
-    for start in range(0,len(rows),8):
+    for start in range(0,len(rows),6):
         page += 1
         text(42,793,'EQUIPMENT CATALOGUE',10,HexColor('#A13400'),'Helvetica-Bold')
         text(42,763,category,24,black,'Helvetica-Bold')
         text(42,738,description,11,gray)
-        for index,p in enumerate(rows[start:start+8]):
+        for index,p in enumerate(rows[start:start+6]):
             col,row = index%2,index//2
             x = 42 + col * 263
-            y = 710 - row * 150
+            y = 710 - row * 185
             approval = p.get('approved_image')
             if approval:
                 with Image.open(assets/approval['asset']) as image:
@@ -82,8 +83,22 @@ for i, (_,category,description) in enumerate(categories):
                 pdf.setFillColor(HexColor('#EFF1F3'))
                 pdf.rect(x,y-90,245,90,fill=1,stroke=0)
                 text(x+12,y-48,'Image pending',10,gray)
-            for j,line in enumerate(simpleSplit(p['title'],'Helvetica-Bold',11,245)):
+            title_lines = simpleSplit(p['title'],'Helvetica-Bold',11,245)
+            for j,line in enumerate(title_lines):
                 text(x,y-106-j*13,line,11,black,'Helvetica-Bold')
+            cursor = y - 109 - len(title_lines) * 13
+            if not p.get('verified_sizing'):
+                text(x,cursor,'Sizing on request',8,HexColor('#A13400'),'Helvetica-Bold')
+                cursor -= 11
+            for metric, approved in metrics(p):
+                value = value_text(approved) if approved else units_text(metric)
+                if approved and approved.get('basis'):
+                    value += f' ({approved["basis"]})'
+                if not approved and p.get('verified_sizing'):
+                    value += ' · Sizing on request'
+                for line in simpleSplit(f'{metric["label"]} · {value}', 'Helvetica', 8, 245):
+                    text(x,cursor,line,8,gray)
+                    cursor -= 10
         text(42,86,'Configuration as per approved engineering specifications',8,gray)
         footer(page)
         pdf.showPage()
