@@ -51,7 +51,7 @@ class Document(HTMLParser):
             self.title += data
 
 assert len(products) == 23
-assert len(pages) == 44
+assert len(pages) == 45
 removed_copy = ('Sizing on request', 'Capacity &amp; sizing', 'Required sizing', 'Working volume in kL')
 for path in pages:
     document = Document()
