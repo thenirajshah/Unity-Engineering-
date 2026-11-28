@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const products = require('../src/products.json');
 const categories = require('../src/categories.json');
+const testLookbook = require('./test-lookbook.cjs');
 
 const origin = 'https://unity-engineering.test';
 const types = {
@@ -35,7 +36,7 @@ async function run() {
       for (const entry of list.getEntries()) if (!entry.hadRecentInput) window.lab.shifts += entry.value;
     }).observe({type:'layout-shift',buffered:true});
   });
-  await context.route(origin + '/**', async (route) => {
+  const serveBuiltFile = async route => {
     const routePath = new URL(route.request().url()).pathname;
     const name = path.resolve('dist', '.' + routePath);
     const file = routePath.endsWith('/') ? path.join(name, 'index.html') : name;
@@ -43,7 +44,8 @@ async function run() {
       return route.fulfill({ path: 'dist/404.html', status:404, contentType:'text/html' });
     }
     return route.fulfill({ path: file, contentType: types[path.extname(file)], headers: { ...securityHeaders, 'content-length':String(fs.statSync(file).size) } });
-  });
+  };
+  await context.route(origin + '/**', serveBuiltFile);
   const page = await context.newPage();
   page.setDefaultTimeout(12000);
   page.on('pageerror', (error) => errors.push(String(error)));
@@ -55,35 +57,7 @@ async function run() {
       errors.push(`${response.status()} ${response.url()}`);
     }
   });
-  await page.goto(origin + '/equipment-lookbook/');
-  const stage = page.locator('.lineup-stage');
-  const detail = page.locator('.lineup-detail:visible');
-  const machines = page.locator('.lineup-machine');
-  const expectEquipment = async index => {
-    const title = (await machines.nth(index).getAttribute('aria-label')).slice(5);
-    await detail.getByRole('heading', {name:title, exact:true}).waitFor();
-    const slug = products.find(product => product.title === title).slug;
-    assert.equal(await detail.getByText('Request quotation').getAttribute('href'), '/quotation/?equipment=' + slug);
-  };
-  await expectEquipment(0);
-  await stage.focus();
-  await page.keyboard.press('ArrowLeft');
-  await expectEquipment(5);
-  await page.keyboard.press('ArrowRight');
-  await expectEquipment(0);
-  await machines.nth(2).click();
-  await expectEquipment(2);
-  const box = await stage.boundingBox();
-  const x = box.x + box.width * .65, y = box.y + box.height * .45;
-  await page.mouse.move(x, y);
-  await page.mouse.down();
-  await page.mouse.move(x - box.width * .22, y, {steps:8});
-  await page.mouse.up();
-  await expectEquipment(3);
-  await page.mouse.wheel(0, 120);
-  await expectEquipment(4);
-  await page.getByRole('button', {name:'Next equipment'}).click();
-  await expectEquipment(5);
+  await testLookbook({ browser, page, origin, serveBuiltFile });
   const routes = fs.readdirSync('dist', { recursive:true })
     .filter(name => name.endsWith('index.html'))
     .map(name => '/' + name.replace(/index\.html$/, ''));
