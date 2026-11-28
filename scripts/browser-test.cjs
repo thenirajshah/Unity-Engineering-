@@ -55,10 +55,39 @@ async function run() {
       errors.push(`${response.status()} ${response.url()}`);
     }
   });
+  await page.goto(origin + '/equipment-lookbook/');
+  const stage = page.locator('.lineup-stage');
+  const detail = page.locator('.lineup-detail:visible');
+  const machines = page.locator('.lineup-machine');
+  const expectEquipment = async index => {
+    const title = (await machines.nth(index).getAttribute('aria-label')).slice(5);
+    await detail.getByRole('heading', {name:title, exact:true}).waitFor();
+    const slug = products.find(product => product.title === title).slug;
+    assert.equal(await detail.getByText('Request quotation').getAttribute('href'), '/quotation/?equipment=' + slug);
+  };
+  await expectEquipment(0);
+  await stage.focus();
+  await page.keyboard.press('ArrowLeft');
+  await expectEquipment(5);
+  await page.keyboard.press('ArrowRight');
+  await expectEquipment(0);
+  await machines.nth(2).click();
+  await expectEquipment(2);
+  const box = await stage.boundingBox();
+  const x = box.x + box.width * .65, y = box.y + box.height * .45;
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x - box.width * .22, y, {steps:8});
+  await page.mouse.up();
+  await expectEquipment(3);
+  await page.mouse.wheel(0, 120);
+  await expectEquipment(4);
+  await page.getByRole('button', {name:'Next equipment'}).click();
+  await expectEquipment(5);
   const routes = fs.readdirSync('dist', { recursive:true })
     .filter(name => name.endsWith('index.html'))
     .map(name => '/' + name.replace(/index\.html$/, ''));
-  assert.equal(routes.length, 43);
+  assert.equal(routes.length, 44);
   for (const width of [320,375,430,768,1024,1440,1920,2560]) {
     await page.setViewportSize({width, height:900});
     for (const route of routes) {
@@ -247,7 +276,7 @@ async function run() {
   await page.goto(origin);
   await page.locator('.hero-art img').evaluate(image => image.decode());
   await page.screenshot({path:'test-results/home-390.png'});
-  console.log('Chromium passed all 43 routes at eight viewport widths, navigation, zoom, product WhatsApp, filters, quotation drafts, five GLBs, component views, cutaway, exploded assembly, fallback, 404 and PDF checks.');
+  console.log('Chromium passed all 44 routes at eight viewport widths, navigation, zoom, product WhatsApp, filters, quotation drafts, five GLBs, component views, cutaway, exploded assembly, fallback, 404 and PDF checks.');
   await browser.close();
 }
 run().catch((error) => { console.error(error); process.exit(1); });

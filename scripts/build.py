@@ -118,7 +118,7 @@ def header(path):
     return f'''<a class="skip" href="#main">Skip to content</a><header class="header" id="top">
 <div class="nav shell">{brand()}<button type="button" class="menu-button" aria-expanded="false" aria-controls="navigation">Menu</button>
 <nav id="navigation" aria-label="Primary navigation">{links([("/", "Home"), ("/about/", "About")],path)}
-<details class="mega"><summary{current}>Products</summary><div class="mega-panel"><div class="shell"><div class="mega-lead"><a class="menu-cat" href="/products/">Browse full catalogue <span class="arrow-up" aria-hidden="true"></span></a><a href="/catalogue/">Download PDF</a></div><div class="mega-grid">{mega}</div></div></div></details>
+<details class="mega"><summary{current}>Products</summary><div class="mega-panel"><div class="shell"><div class="mega-lead"><a class="menu-cat" href="/products/">Browse full catalogue <span class="arrow-up" aria-hidden="true"></span></a><a href="/equipment-lookbook/">Equipment lookbook</a><a href="/catalogue/">Download PDF</a></div><div class="mega-grid">{mega}</div></div></div></details>
 {links([("/manufacturing/","Manufacturing"),("/industries/","Industries"),("/gallery/","Gallery"),("/contact/","Contact")], path)}
 <a class="drawer-quote" href="/quotation/">Request a Quote</a></nav>
 {button('/quotation/', 'Request a Quote', 'nav-quote')}</div></header>'''
@@ -254,7 +254,7 @@ def build_home():
     body = hero + '<section class="light intro-band">'+about+'</section>'
     body += section('Equipment catalogue','Find equipment by process duty.',category_cards(), 'light equipment-band', button('/products/','View all equipment','outline'))
     selected = [next(p for p in PRODUCTS if p['kind'] == kind) for kind in SHOWCASE]
-    body += section('Featured equipment','Explore key configurations.',cards(selected), 'light feature-band')
+    body += section('Featured equipment','Explore key configurations.',cards(selected), 'light feature-band', button('/equipment-lookbook/', 'Open equipment lookbook', 'outline'))
     body += section('Industries We Serve','Solutions for Critical Manufacturing Environments',industry_cards(),'industries-band',button('/industries/','View industries','outline'))
     stages = [
         ('Define the duty','Agree operating conditions, product contact materials and plant interfaces.'),
@@ -271,6 +271,30 @@ def build_home():
     body += section('Gallery','A closer look at the equipment.',cards([selected[1],selected[2]]),'light gallery-feature',button('/gallery/','Open equipment gallery','outline'))
     body += '<section class="band light"><div class="shell">'+quote_banner()+contact_block()+'</div></section>'
     page('/', 'Unity Engineering | Process Equipment Fabricator in Ankleshwar', f'Pharmaceutical, chemical and industrial process equipment fabrication in Ankleshwar, Gujarat. Explore {len(PRODUCTS)} equipment entries and request a quotation.', body)
+
+def build_lookbook():
+    by_kind = {p['kind']: p for p in PRODUCTS}
+    selection = [by_kind[k] for k in ('reactor-limpet', 'exchanger', 'column', 'pressure', 'anfd', 'ribbon')]
+    cards = []
+    details = []
+    for i, p in enumerate(selection):
+        title = e(p['title'])
+        category = e(CATEGORIES[p['cat']][1])
+        cards.append(f'''<button type="button" class="lineup-machine" aria-label="Show {title}">
+{pic(p, eager=i == 0, sizes="(max-width: 820px) 54vw, 34vw")}
+<span>{i+1:02d} / {len(selection):02d}</span></button>''')
+        details.append(f'''<article class="lineup-detail"><p class="kicker">{category}</p><h2>{title}</h2>
+<p>{e(p['desc'])}</p><dl><div><dt>Application</dt><dd>{e(p['application'])}</dd></div>
+<div><dt>Construction features</dt><dd>{e(p['features'])}</dd></div></dl>
+<div class="actions">{button(url(p),'View equipment')}{button(quoteurl(p),'Request quotation','outline')}</div></article>''')
+    content = f'''<link rel="stylesheet" href="/assets/lineup.css"><script defer src="/assets/lineup.js"></script>
+<section class="shell lineup"><h1>Equipment lookbook</h1><div class="lineup-layout">
+<div class="lineup-stage" role="region" aria-label="Equipment lineup" tabindex="0">{''.join(cards)}</div>
+<div class="lineup-details" aria-live="polite">{''.join(details)}</div></div>
+<div class="lineup-controls" hidden><span>Drag or use the arrow keys</span>
+<button type="button" data-step="-1" aria-label="Previous equipment">←</button>
+<button type="button" data-step="1" aria-label="Next equipment">→</button></div></section>'''
+    page('/equipment-lookbook/', 'Equipment Lookbook', 'Explore six process equipment configurations and their applications, construction features and quotation options.', content, [('/products/', 'Products')])
 
 def build_products():
     choices = ''.join(f'<option value="{i}">{e(c[1])}</option>' for i,c in enumerate(CATEGORIES))
@@ -403,6 +427,7 @@ for folder in ('renders', 'products', 'categories', 'details'):
 (DIST/'assets/models/rmg.glb').unlink(missing_ok=True)
 shutil.copyfile('src/engine.js', DIST/'assets/engine.js')
 build_home()
+build_lookbook()
 build_products()
 build_information()
 paths = sorted('/' if p.parent == DIST else '/'+p.parent.relative_to(DIST).as_posix()+'/' for p in DIST.rglob('index.html'))
