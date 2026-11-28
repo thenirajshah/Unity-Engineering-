@@ -114,11 +114,11 @@ def header(path):
         + links([(url(p), e(p['title'])) for p in PRODUCTS if p['cat'] == i], path) + '</div>'
         for i, c in enumerate(CATEGORIES)
     )
-    current = ' class="active"' if path.startswith('/products/') else ''
+    current = ' class="active"' if path.startswith('/products/') or path == '/equipment-lookbook/' else ''
     return f'''<a class="skip" href="#main">Skip to content</a><header class="header" id="top">
 <div class="nav shell">{brand()}<button type="button" class="menu-button" aria-expanded="false" aria-controls="navigation">Menu</button>
 <nav id="navigation" aria-label="Primary navigation">{links([("/", "Home"), ("/about/", "About")],path)}
-<details class="mega"><summary{current}>Products</summary><div class="mega-panel"><div class="shell"><div class="mega-lead"><a class="menu-cat" href="/products/">Browse full catalogue <span class="arrow-up" aria-hidden="true"></span></a><a href="/equipment-lookbook/">Equipment lookbook</a><a href="/catalogue/">Download PDF</a></div><div class="mega-grid">{mega}</div></div></div></details>
+<details class="mega"><summary{current}>Products</summary><div class="mega-panel"><div class="shell"><div class="mega-lead"><a class="menu-cat" href="/products/">Browse full catalogue <span class="arrow-up" aria-hidden="true"></span></a>{links([('/equipment-lookbook/', 'Equipment lookbook')], path)}<a href="/catalogue/">Download PDF</a></div><div class="mega-grid">{mega}</div></div></div></details>
 {links([("/manufacturing/","Manufacturing"),("/industries/","Industries"),("/gallery/","Gallery"),("/contact/","Contact")], path)}
 <a class="drawer-quote" href="/quotation/">Request a Quote</a></nav>
 {button('/quotation/', 'Request a Quote', 'nav-quote')}</div></header>'''
@@ -275,25 +275,32 @@ def build_home():
 def build_lookbook():
     by_kind = {p['kind']: p for p in PRODUCTS}
     selection = [by_kind[k] for k in ('reactor-limpet', 'exchanger', 'column', 'pressure', 'anfd', 'ribbon')]
-    cards = []
     details = []
+    index = []
+    sizes = '(max-width: 540px) 91vw, (max-width: 820px) 57vw, (max-width: 1714px) 36vw, 614px'
     for i, p in enumerate(selection):
         title = e(p['title'])
         category = e(CATEGORIES[p['cat']][1])
-        cards.append(f'''<button type="button" class="lineup-machine" aria-label="Show {title}">
-{pic(p, eager=i == 0, sizes="(max-width: 820px) 54vw, 34vw")}
-<span>{i+1:02d} / {len(selection):02d}</span></button>''')
-        details.append(f'''<article class="lineup-detail"><p class="kicker">{category}</p><h2>{title}</h2>
-<p>{e(p['desc'])}</p><dl><div><dt>Application</dt><dd>{e(p['application'])}</dd></div>
+        details.append(f'''<article class="lineup-detail" id="look-{e(p['kind'])}">
+<div class="lineup-photo">{pic(p, eager=i == 0, sizes=sizes)}<span class="lineup-credit">{image_caption(p)}</span></div>
+<div class="lineup-copy"><p class="kicker">{category}</p><h2>{title}</h2>
+<p class="lineup-description">{e(p['desc'])}</p><dl>
+<div><dt>Application</dt><dd>{e(p['application'])}</dd></div>
 <div><dt>Construction features</dt><dd>{e(p['features'])}</dd></div></dl>
-<div class="actions">{button(url(p),'View equipment')}{button(quoteurl(p),'Request quotation','outline')}</div></article>''')
+<div class="actions">{button(quoteurl(p), 'Request quotation')}{button(url(p), 'View equipment', 'outline')}</div></div></article>''')
+        index.append(f'<a href="#look-{e(p["kind"])}">{category}</a>')
     content = f'''<link rel="stylesheet" href="/assets/lineup.css"><script defer src="/assets/lineup.js"></script>
-<section class="shell lineup"><h1>Equipment lookbook</h1><div class="lineup-layout">
-<div class="lineup-stage" role="region" aria-label="Equipment lineup" tabindex="0">{''.join(cards)}</div>
-<div class="lineup-details" aria-live="polite">{''.join(details)}</div></div>
-<div class="lineup-controls" hidden><span>Drag or use the arrow keys</span>
-<button type="button" data-step="-1" aria-label="Previous equipment">←</button>
-<button type="button" data-step="1" aria-label="Next equipment">→</button></div></section>'''
+<section class="shell lineup" aria-labelledby="lookbook-title">
+<div class="lineup-heading"><h1 id="lookbook-title">Equipment lookbook</h1><a href="/products/">Full catalogue <i class="arrow-up" aria-hidden="true"></i></a></div>
+<div class="lineup-layout"><figure class="lineup-exhibit" hidden>
+<div class="lineup-stage" tabindex="0" role="group" aria-label="Equipment photographs. Use left and right arrow keys to browse."></div>
+<figcaption class="lineup-tools"><span class="lineup-credits"></span>
+<div class="lineup-controls"><span class="lineup-count" role="status" aria-atomic="true">
+<b>01</b> / {len(selection):02d}<span class="lineup-sr"></span></span>
+<button type="button" data-step="-1" aria-label="Previous equipment"><i aria-hidden="true"></i></button>
+<button type="button" data-step="1" aria-label="Next equipment"><i aria-hidden="true"></i></button></div></figcaption>
+</figure><div class="lineup-details">{''.join(details)}</div></div>
+<nav class="lineup-index" aria-label="Select equipment by category">{''.join(index)}</nav></section>'''
     page('/equipment-lookbook/', 'Equipment Lookbook', 'Explore six process equipment configurations and their applications, construction features and quotation options.', content, [('/products/', 'Products')])
 
 def build_products():
